@@ -1,0 +1,11 @@
+<div class="box analysis-box" >
+    <p class="status-labels status-labels--lg normal font-weight-800">Action points</p>
+    <ul class="primary-list">
+        <li *ngFor="let commnet of comments">
+            <p>
+                {{commnet.text}}
+                <!-- <span class="clickable" (click)="onReadMoreClicked($event)">... (Read more)</span> -->
+            </p>
+        </li>
+    </ul>
+</div>

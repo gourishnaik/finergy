@@ -1,0 +1,690 @@
+<div class="form-row scrollStart">
+    <div class="form-col-one">
+        <div class="site-container-md budget-graph-holder" [class.fixedElement]="fixedElement">
+            <!-- <h3 class="primary-title d-lg-none">Budgeting</h3> -->
+            <div>
+                <div class="vectors-holder ">
+                    <div class="vectors-top">
+                        <img class="img-fluid vectors-media" src="/assets/images/vectors/circles.svg" alt="vectors">
+                        <img class="img-fluid vectors-media d-lg-none" src="/assets/images/vectors/waves.svg"
+                            alt="vectors">
+                    </div>
+                    <div class="vectors-holder__media-wrapper">
+                        <img class="img-fluid vectors-holder__media" src="/assets/images/hero/budgeting-new.png"
+                            alt="girl doing yoga" />
+                        <div class="budget-progress-box mb-4">
+                            <div class="budget-progress--height" #budgetStatusBar>
+                                <div class="budget-progress-wrapper">
+                                    <p class="budget-progress-title">Budgeting status</p>
+                                    <div>
+                                        <!-- ===#BUDGET PROGRESS=== -->
+                                        <div class="budget-progress ">
+                                            <div class="budget-progress-indicator-wrapper">
+                                                <div class="budget-progress-indicator progress-indictor"
+                                                    [ngStyle]="{'left.%': percentage}"></div>
+                                            </div>
+                                        </div>
+                                        <!-- ===#BUDGET PROGRESS labels=== -->
+                                        <div class="budget-progress-label">
+                                            <p>Risky</p>
+                                            <p>Need Help</p>
+                                            <p>Normal</p>
+                                            <p>Good</p>
+                                            <p>Excellent</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="vectors-bottom">
+                        <img src="/assets/images/vectors/waves.svg" alt="vectors">
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-col-two">
+        <div class="site-container-md">
+            <div class="mb-4 header-top">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="primary-title">Budgeting</h3>
+                    <!-- <div>
+                        <div class="status-box">
+                            <p class="status needs">
+                                <span class="status-text">NEEDS</span>
+                            </p>
+                            <p class="status wants">
+                                <span class="status-text">WANTS</span>
+                            </p>
+    
+                        </div>
+                    </div> -->
+                </div>
+                <p class="sub-title ">In this section, we analyse your income and spending habits and tell you how much
+                    you should spend on your needs and wants.</p>
+            </div>
+
+            <div>
+                <!-- <div class="d-flex justify-content-between mb-2 mb-sm-3">
+                    <p class="font-14 secondary-color fw-semibold">Family expenses per month</p>
+                    <p class="font-14 secondary-color fw-semibold">Budget</p>
+                </div> -->
+
+                <!-- <div class="status-box d-lg-none mb-3">
+                    <p class="status needs">
+                        <span class="status-text">NEEDS</span>
+                    </p>
+                    <p class="status wants">
+                        <span class="status-text">WANTS</span>
+                    </p>
+                </div> -->
+                <form [formGroup]="budgetingForm">
+                    <!-- ==================================
+                            # NEEDS
+                    ======================================= -->
+
+                    <div class="form-boxes">
+                        <div class="box collapsible " [class.collapsed]="activeDropDowns.includes('budgetingNeeds')">
+                            <div class="box-header justify-content-between" (click)="dropDownMenu('budgetingNeeds')">
+                                <div>
+                                    <div class="d-flex">
+                                        <p class="status needs mt-1 me-1 me-sm-2"></p>
+                                        <h3 class="box-header-title">NEEDS</h3>
+                                    </div>
+                                    <p class="box-header-sub-title">
+                                        Financial Needs are expenditures that are essential for you to live and work.
+                                    </p>
+                                </div>
+                                <div class="d-flex align-items-center">
+
+                                    <img class="toggle-icon" width="13" src="/assets/images/icons/toggle.svg"
+                                        alt="arrow">
+                                </div>
+                            </div>
+                            <div class="box-content">
+                                <div class="d-flex justify-content-between mb-2"
+                                    [class.scrollNext]="rentBudget?.errors">
+                                    <p class="font-14 secondary-color fw-semibold">Family expenses per month</p>
+                                    <p class="font-14 secondary-color fw-semibold">Budget</p>
+                                </div>
+                               
+
+                                <!-- ===#Household expenses=== -->
+                                <div class="box" [class.scrollNext]="householdBudget?.errors"
+                                    [class.disabled]="rentBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status needs mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Household expenses&nbsp;</h3>
+                                                    <!-- <p class="font-14 fw-bold">(Ghar kharcha)</p> -->
+                                                </div>
+                                                <p class="box-header-sub-title">Electricity bills, phone bills, Wi-Fi
+                                                    bills, water
+                                                    bills, grocery etc
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>
+                                                {{household | inrcurrency
+                                                }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="HouseholdBudget" [value]="true"
+                                                        name="HouseholdBudget" id="householdBudgetYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'HouseholdBudget');">
+                                                    <label class="form-selectable" for="householdBudgetYes"
+                                                        [class.box-error]="(householdBudget?.dirty || householdBudget?.touched) && householdBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="HouseholdBudget"
+                                                        [value]="false" name="HouseholdBudget" id="householdBudgetNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'HouseholdBudget');">
+                                                    <label class="form-selectable" for="householdBudgetNo"
+                                                        [class.box-error]="(householdBudget?.dirty || householdBudget?.touched) && householdBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="householdBudget?.dirty || householdBudget?.touched">
+                                                <p class="error-msg" *ngIf="householdBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/thinkingFace.svg" alt="emoji">
+                                            <p class="suggetion-secondaryText">20%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            of Households in India maintain a systematic Home Expense Budget
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- ===#Transport Cost===  -->
+                                <div class="box" [class.scrollNext]="transportBudget?.errors"
+                                    [class.disabled]="householdBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status needs mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Transport Cost</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Fuel for all the cars and bikes, vehicle
+                                                    maintenance
+                                                    etc
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>{{transport
+                                                |
+                                                inrcurrency}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class=" col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="TransportBudget" [value]="true"
+                                                        name="TransportBudget" id="transportBudgetYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'TransportBudget');">
+                                                    <label class="form-selectable" for="transportBudgetYes"
+                                                        [class.box-error]="(transportBudget?.dirty || transportBudget?.touched) && transportBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="TransportBudget"
+                                                        [value]="false" name="TransportBudget" id="transportBudgetNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'TransportBudget');">
+                                                    <label class="form-selectable" for="transportBudgetNo"
+                                                        [class.box-error]="(transportBudget?.dirty || transportBudget?.touched) && transportBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="transportBudget?.dirty || transportBudget?.touched">
+                                                <p class="error-msg" *ngIf="transportBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/hushed.svg" alt="emoji">
+
+                                            <p class="suggetion-secondaryText">60%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            increase in spending on Fuel and personal vehicles was seen post Covid-19
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- ===#Loan/ EMI===  TransportBudget [class.disabled]="HouseRented ? rentBudget?.errors:transportBudget?.errors "-->
+                                <div class="box" [class.scrollNext]="loanBudget?.errors"
+                                    [class.disabled]="transportBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status needs mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Loan / EMI</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Total monthly instalments of home loans,
+                                                    vehicle
+                                                    loans,
+                                                    and other EMIs
+                                                </p>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>{{loan |
+                                                inrcurrency}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="LoanBudget" [value]="true"
+                                                        name="LoanBudget" id="loanBudgetYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'LoanBudget');">
+                                                    <label class="form-selectable" for="loanBudgetYes"
+                                                        [class.box-error]="(loanBudget?.dirty || loanBudget?.touched) && loanBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="LoanBudget" [value]="false"
+                                                        name="LoanBudget" id="loanBudgetNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'LoanBudget');">
+                                                    <label class="form-selectable" for="loanBudgetNo"
+                                                        [class.box-error]="(loanBudget?.dirty || loanBudget?.touched) && loanBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="loanBudget?.dirty || loanBudget?.touched">
+                                                <p class="error-msg" *ngIf="loanBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/sad.svg" alt="emoji">
+
+                                            <p class="suggetion-secondaryText">65%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            of the Indian population have over-exposure to debt/loan
+                                        </p>
+                                    </div>
+                                </div>
+
+                                 <!-- ===#Rent=== -->
+                                <!-- *ngIf="this.HouseRented" -->
+                                <div class="box">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status needs mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Rent</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Home rent
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title" *ngIf="HouseRented"><span
+                                                    class="">₹&nbsp;</span>{{rent
+                                                |inrcurrency}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="RentBudget" name="RentBudget"
+                                                        [value]="true" id="rentBudgetYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'RentBudget');">
+                                                    <label class="form-selectable" [class.disabled]="!HouseRented"
+                                                        for="rentBudgetYes"
+                                                        [class.box-error]="(rentBudget?.dirty || rentBudget?.touched) && rentBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="RentBudget" [value]="false"
+                                                        name="RentBudget" id="rentBudgetNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'RentBudget');">
+                                                    <label class="form-selectable" [class.disabled]="!HouseRented"
+                                                        for="rentBudgetNo"
+                                                        [class.box-error]="(rentBudget?.dirty || rentBudget?.touched) && rentBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="rentBudget?.dirty || rentBudget?.touched">
+                                                <p class="error-msg" *ngIf="rentBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box" *ngIf="HouseRented">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/house.svg" alt="emoji">
+
+                                            <p class="suggetion-secondaryText">70%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            of parents prefer having their own house whereas most of the unmarried youth
+                                            prefer rental apartments
+                                        </p>
+                                    </div>
+                                    <div class="suggetion-box" *ngIf="!HouseRented">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/wealth-status/five.svg" alt="emoji">
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            Awesome! Your rent is within the budget since you live in your own house.
+                                            This will help your Finergy Score.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ==================================
+                            #END NEEDS
+                    ======================================= -->
+                    <!-- ==================================
+                            #WANTS
+                    ======================================= -->
+
+                    <div class="form-boxes " [class.scrollNext]="personalCareBudget?.errors">
+                        <div class="box collapsible collapsed"
+                            [class.collapsed]="activeDropDowns.includes('budgetingWants')"
+                            [class.disabled]="loanBudget?.errors">
+                            <div class="box-header justify-content-between" (click)="dropDownMenu('budgetingWants')">
+                                <div>
+                                    <div class="d-flex">
+                                        <p class="status wants mt-1 me-1 me-sm-2"></p>
+                                        <h3 class="box-header-title">WANTS</h3>
+                                    </div>
+
+                                    <p class="box-header-sub-title">
+                                        Financial Wants are expenditures that are those made for fun, leisure and living
+                                        a comfortable life.
+                                    </p>
+                                </div>
+                                <div class="d-flex align-items-center">
+
+                                    <img class="toggle-icon" width="13" src="/assets/images/icons/toggle.svg"
+                                        alt="arrow">
+                                </div>
+                            </div>
+                            <div class="box-content">
+
+                                <div class="d-flex justify-content-between mb-2 ">
+                                    <p class="font-14 secondary-color fw-semibold">Family expenses per month</p>
+                                    <p class="font-14 secondary-color fw-semibold">Budget</p>
+                                </div>
+                                <!-- ===#Personal Care=== -->
+                                <div class="box" [class.scrollNext]="personalCareBudget?.errors"
+                                    [class.disabled]="loanBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status wants mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Personal Care</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Overall family spends on clothing, spa,
+                                                    salon, gym
+                                                    fee etc
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>
+                                                {{personal |inrcurrency}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="PersonalCareBudget"
+                                                        [value]="true" name="PersonalCareBudget" id="personalCareYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'PersonalCareBudget');">
+                                                    <label class="form-selectable" for="personalCareYes"
+                                                        [class.box-error]="(personalCareBudget?.dirty || personalCareBudget?.touched) && personalCareBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="PersonalCareBudget"
+                                                        [value]="false" name="PersonalCareBudget" id="personalCareNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'PersonalCareBudget');">
+                                                    <label class="form-selectable" for="personalCareNo"
+                                                        [class.box-error]="(personalCareBudget?.dirty || personalCareBudget?.touched) && personalCareBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="personalCareBudget?.dirty || personalCareBudget?.touched">
+                                                <p class="error-msg" *ngIf="personalCareBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/womanClothes.svg" alt="emoji">
+                                            <p class="suggetion-secondaryText">35%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            of people spend more than a quarter of their income on personal care
+                                            products
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- ===#Entertainment=== -->
+                                <div class="box" [class.scrollNext]="entertainmentBudget?.errors"
+                                    [class.disabled]="personalCareBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status wants mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Entertainment</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Cable, OTT Subscriptions, multiplex,
+                                                    parties,
+                                                    hobbies
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>
+                                                {{entertainment |inrcurrency}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="EntertainmentBudget"
+                                                        [value]="true" name="EntertainmentBudget" id="entertainmentYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'EntertainmentBudget');">
+                                                    <label class="form-selectable" for="entertainmentYes"
+                                                        [class.box-error]="(entertainmentBudget?.dirty || entertainmentBudget?.touched) && entertainmentBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="EntertainmentBudget"
+                                                        [value]="false" name="EntertainmentBudget" id="entertainmentNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'EntertainmentBudget');">
+                                                    <label class="form-selectable" for="entertainmentNo"
+                                                        [class.box-error]="(entertainmentBudget?.dirty || entertainmentBudget?.touched) && entertainmentBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="entertainmentBudget?.dirty || entertainmentBudget?.touched">
+                                                <p class="error-msg" *ngIf="entertainmentBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/moneyMouth.svg" alt="emoji">
+                                        </div>
+                                        <p class="suggetion-secondaryText">60%</p>
+                                        <p class="suggetion-primaryText">
+                                            of people can save at least Rs. 1000/month by controlling their
+                                            entertainment spends
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- ===#EATING OUT=== -->
+                                <div class="box" [class.scrollNext]="eatingOutBudget?.errors"
+                                    [class.disabled]="entertainmentBudget?.errors">
+                                    <div class="box-header justify-content-between">
+                                        <div class="box-header__left d-flex ">
+                                            <p class="status wants mt-1 me-1 me-sm-2"></p>
+                                            <div>
+                                                <div class="d-sm-flex align-items-center">
+                                                    <h3 class="box-header-title">Eating Out</h3>
+                                                </div>
+                                                <p class="box-header-sub-title">Restaurants and food deliveries
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div class="box-header__right">
+                                            <p class="box-header__right-title"><span class="">₹&nbsp;</span>
+                                                {{food |inrcurrency}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="box__form-holder box__form-holder--padding">
+                                        <p class="box__form-question">Are you within the <br class="question-br">
+                                            budget?</p>
+                                        <div class="col-sm-6">
+                                            <div class="form-selectable-group">
+                                                <div class="form-selectable__wrapper col-6 ">
+                                                    <input type="radio" formControlName="EatingOutBudget" [value]="true"
+                                                        name="EatingOutBudget" id="eatingOutYes"
+                                                        (change)="calulatePercentage($event);checkValid($event,'EatingOut');">
+                                                    <label class="form-selectable" for="eatingOutYes"
+                                                        [class.box-error]="(eatingOutBudget?.dirty || eatingOutBudget?.touched) && eatingOutBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>Yes
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                                <div class="form-selectable__wrapper col-6">
+                                                    <input type="radio" formControlName="EatingOutBudget"
+                                                        [value]="false" name="EatingOutBudget" id="eatingOutNo"
+                                                        (change)="calulatePercentage($event);checkValid($event,'EatingOut');">
+                                                    <label class="form-selectable" for="eatingOutNo"
+                                                        [class.box-error]="(eatingOutBudget?.dirty || eatingOutBudget?.touched) && eatingOutBudget?.errors?.['required']">
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="form-selectable__toggle radio"></span>No
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- ===#ERROR MESSAGE=== -->
+                                            <div *ngIf="eatingOutBudget?.dirty || eatingOutBudget?.touched">
+                                                <p class="error-msg" *ngIf="eatingOutBudget?.errors?.['required']">
+                                                    Please select your budget
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="suggetion-box">
+                                        <div class="suggetion-box__left">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/shoping.svg" alt="emoji">
+                                            <p class="suggetion-secondaryText">65%</p>
+                                        </div>
+                                        <p class="suggetion-primaryText">
+                                            of people have started overspending on online shopping post-pandemic
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- ==================================
+                            #END WANTS
+                    ======================================= -->
+                    <div class="form-action">
+                        <!-- <button class="btn primary-button mx-auto submitButton"
+                            [class.btn-disabled]="!budgetingForm.valid || loading" (click)="saveForm($event)">
+                            {{!loading ? 'Save and Next': ''}}
+                            <div class="spinner-grow text-light" role="status" *ngIf="loading"></div>
+                        </button> -->
+
+                        <button class="btn primary-button mx-auto submitButton btn-loader" (click)="saveForm($event)"
+                            [class.btn-disabled]="!budgetingForm.valid || loading" [class.loaded]="loading">
+                            Save and Next
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

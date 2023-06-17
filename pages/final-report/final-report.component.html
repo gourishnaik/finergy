@@ -1,0 +1,511 @@
+<div class="report-wrapper" *ngIf="pageLoaded">
+    <div class="report-wrapper-main">
+        <div class="report-top__wrapper container">
+            <div class="report-top">
+                <h4 class="report-top--title">Finergy Report <u>{{currentYear}}</u></h4>
+                <img class="report-top--logo" src="/assets/images/finergy.svg" alt="logo">
+            </div>
+        </div>
+    </div>
+    <div class="report-content container-fluid">
+        <div class="report-content__header">
+            <div class="report-content__header-left">
+                <div class="report-content__header-left__flag">
+                    <!-- <img class="img-fluid" src="/assets/images/flags/flag-red.svg" alt="flag"> -->
+                    <img *ngIf="report.finergy.score" class="img-fluid" width="55"
+                        src="assets/images/flags/{{ report.finergy.score <= 40 && 'flag-red' || (report.finergy.score > 40 && report.finergy.score <= 69 ) && 'flag-orange' || report.finergy.score >=70 && 'flag-green' }}.svg">
+                </div>
+                <div class="">
+                    <p class="report-content__header-left__flagtext">Your Finergy level is</p>
+                    <span class="report-content__header-left__flagtext-value"
+                        [style.color]="report.finergy.score | scoreColor">{{report?.finergy.score}}%</span>
+                </div>
+            </div>
+            <div class="report-content__header-right">
+                <p class="report-content__header-right__paraBold">
+                    {{report?.finergy.heading}}
+                </p>
+                <p class="report-content__header-right__paraLite">
+                    {{report?.finergy.note}}
+                </p>
+            </div>
+        </div>
+
+        <!-- ==== GOALS SECTION ====-->
+
+
+        <!-- GOAL 1 -->
+        <div>
+            <div class="report-goals-section" *ngFor="let goal of report?.goals; let i=index">
+                <div class="report-goals-section__header">
+                    <!-- <img class="img-fluid report-goals-section__header--flag" src="/assets/images/flags/flag-red.svg"
+                    alt="flag-red"> -->
+                    <img *ngIf="report.finergy.score" class="img-fluid report-goals-section__header--flag" width="45"
+                        src="assets/images/flags/{{ goal.score <= 40 && 'flag-red' || (goal.score > 40 && goal.score <= 69 ) && 'flag-orange' || goal.score >=70 && 'flag-green' }}.svg">
+                    <div class="goal-header">
+                        <p class="goal-header-top">Goal {{i+1}}</p>
+                        <p class="goal-header-middle">{{goal.heading}}</p>
+                        <p class="goal-header-bottom">{{goal.note}}</p>
+                    </div>
+                </div>
+                <div class="report-goals-section__total-funds">
+                    <p class="report-goals-section__total-funds__value currency-value">{{goal.amount | inrrupee}}</p>
+                    <p class="report-goals-section__total-funds__text currency-text">{{goal.subtext}}
+                    </p>
+                    <p class="report-goals-section__total-funds__text currency-text">{{goal.explained}}
+                    </p>
+                </div>
+
+                <div class="report-goals-section__expense" *ngIf="goal.key == 'retirement'">
+                    <div class="width-45">
+                        <p class="currency-value">{{goal.meta.current | inrrupee}}/Month </p>
+                        <p class="currency-text">Current expenses</p>
+                    </div>
+                    <div class="width-45 width-xs-52">
+                        <p class="currency-value">{{goal.meta.future | inrrupee}}/Month</p>
+                        <p class="currency-text">Expenses at the age of {{goal.meta.age}}</p>
+                    </div>
+                </div>
+
+                <div class="report-goals-section__goal-overview">
+                    <div>
+                        <div class="report-goals-section__goal-score">
+                            <h4 class="color-section__header ">Analysis</h4>
+                        </div>
+                        <div class="score-points">
+                            <p class="report__para">
+                                {{goal.overview}}
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ===#GOALS SOLUTIONS=== -->
+                <div>
+                    <div class="report-goals-section__goal-score">
+                        <h4 class="color-section__header ">Solutions</h4>
+                    </div>
+                    <div class="score-points ">
+                        <h4 class="report-goals-section__goal-overview__title text-center mt-2 mb-3 report-money">
+                            Here’s how you can get a 100% on your Goal Score</h4>
+                        <ol type="1">
+                            <li *ngFor="let advice of goal.advice; let i = index">
+                                <b *ngIf="!!advice.label">{{advice.label}} <br></b>
+                                {{advice.text}}
+                            </li>
+
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="color-section">
+                    <h4 class="color-section__header">{{goal.note}}</h4>
+                    <p class="color-section__para">Here’s what you’re doing right/wrong</p>
+                </div>
+
+                <ng-container *ngFor="let comment of goal.comments">
+
+                    <div class="report-goals-section__factors">
+                        <div class="width-xs-46">
+                            <p class="report-goals-section__factors-title">Factors that affect your Goal</p>
+                            <h6 class="report-goals-section__factors-subtitle">{{comment.label}}</h6>
+                        </div>
+                        <div>
+                            <div class="report-goals-section__factors-title">How well you’re doing</div>
+                            <div class="factor-status">
+                                <img class="img-fluid factor-status__flag"
+                                    src="/assets/images/flags/{{comment.value ? 'flag-green' : 'flag-red'}}.svg"
+                                    alt="flag">
+                                <h6 class="report-goals-section__factors-subtitle">{{comment.value ? 'Good' : 'Bad'}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="report-goals-section__policy-audited">
+                        <ul class="font-400 bullets">
+                            <li *ngFor="let bullet of comment.text">{{bullet}}</li>
+                        </ul>
+
+                        <div class="my-4 text-center">
+                            <button *ngIf="comment.key | actionButton:comment.value"
+                                class="report-goals-section__policy-audited--btn"
+                                (click)="auditPolicy(comment.key, comment.value)">{{comment.key |
+                                actionButton:comment.value }}</button>
+                        </div>
+                    </div>
+
+                </ng-container>
+
+            </div>
+        </div>
+        <!-- =========GOALS ENDS============-->
+
+
+        <!-- ==== MANAGEMENT REPORTS SECTION ==== -->
+
+        <!-- BUDGET MANAGEMENT -->
+
+        <div class="report-goals-section my-4">
+            <div class="report-goals-section__header">
+                <!-- ===#PENDING=== -->
+                <img class="img-fluid report-goals-section__header--flag" width="45"
+                    src="/assets/images/flags/{{ report?.budget.score <= 40 && 'flag-red' || (report?.budget.score > 40 && report?.budget.score <= 69 ) && 'flag-orange' || report?.budget.score >=70 && 'flag-green' }}.svg"
+                    alt="flag-red">
+                <div class="goal-header">
+                    <p class="goal-header-middle">Budget Management Report</p>
+                    <p class="goal-header-bottom">Your Budget Management Score is {{report?.budget.score}}%!
+                        <img class="header-emoji"
+                            src="/assets/images/emojies/{{report?.budget.score <=40 ? 'sad' : (report?.budget.score >=41 && report?.budget.score <=69) && 'happy' || report?.budget.score >=70 && 'star-eyes' }}.svg"
+                            alt="emoji">
+                    </p>
+                </div>
+            </div>
+            <div class="report-goals-section__total-funds">
+                <p class="report-goals-section__total-funds__text currency-text">Your family’s total monthly spending
+                </p>
+
+                <p class="report-goals-section__total-funds__value currency-value"> {{report.budgetInfo.needs +
+                    report.budgetInfo.wants
+                    | inrrupee}}/-</p>
+            </div>
+
+            <div class="report-goals-section__expense">
+                <div class="width-45">
+                    <p class="currency-text">Amount spent on Needs </p>
+                    <p class="currency-value">{{report.budgetInfo.needs
+                        | inrrupee}}/ Month </p>
+                    <div class="status-report {{needsStatus == true ? 'status-report__green' : 'status-report__red'}}">
+
+
+                        <span class="status-report__right">
+                            {{needsStatus == true ? 'Healthy' : 'Unhealthy'}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="width-45 ">
+                    <p class="currency-text"> Amount spent on Wants</p>
+                    <p class="currency-value"> {{report.budgetInfo.wants
+                        | inrrupee}}/ Month</p>
+                    <div class="status-report {{wantsStatus == true ? 'status-report__green' : 'status-report__red'}}">
+
+
+                        <span class="status-report__right">
+                            {{wantsStatus == true ? 'Healthy' : 'Unhealthy'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="report-goals-section__goal-overview">
+                <h4 class="report-goals-section__goal-overview__title">Overview</h4>
+                <p class="report__para">
+                    {{report?.budget.info.overview}}
+                </p>
+            </div> -->
+            <div class="report-goals-section__goal-overview">
+                <div>
+                    <div class="report-goals-section__goal-score">
+                        <h4 class="color-section__header ">Analysis</h4>
+                    </div>
+                    <div class="score-points">
+                        <div class="report__para">
+                            <p class="font-400">
+                                {{report.budget.info.overview}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div class="report-goals-section__goal-score">
+                    <h4 class="color-section__header ">Solutions</h4>
+                </div>
+                <div class="score-points ">
+                    <h4 class="report-goals-section__goal-overview__title text-center mt-2 mb-3 report-money">
+                        Here’s how you can get a 100% on your Budget Management Score</h4>
+                    <ol type="1">
+                        <li *ngFor="let advice of report.budget.info.advice"><b>{{advice.label}}<br></b>{{advice.text}}
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+            <ng-container *ngFor="let comment of report?.budget.info.comments">
+                <div class="report-goals-section__factors">
+                    <div class="width-xs-46">
+                        <p class="report-goals-section__factors-title">Question</p>
+                        <h6 class="report-goals-section__factors-subtitle">{{comment.label}}</h6>
+                    </div>
+
+                    <div>
+                        <div class="report-goals-section__factors-title">Your response</div>
+                        <div class="factor-status">
+                            <img class="img-fluid factor-status__flag"
+                                src="/assets/images/flags/{{comment.value ? 'flag-green' : 'flag-red'}}.svg" alt="flag">
+                            <h6 class="report-goals-section__factors-subtitle">{{comment.value ? "Within" : "Over"}}
+                                budget</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-goals-section__policy-audited mb-3">
+                    <ul class="font-400 bullets">
+                        <li *ngFor="let bullet of comment.text">{{bullet}}</li>
+                    </ul>
+                </div>
+            </ng-container>
+
+
+            <!-- <div class="report-goals-section__goal-score">
+                <h4 class="color-section__header report-money">Here’s how you can get a 100% on your Risk Score</h4>
+            </div>
+
+            <div class="score-points">
+                <ol type="1">
+                    <li *ngFor="let advice of report.budget.info.advice"><b>{{advice.label}}<br></b>{{advice.text}}</li>
+                </ol>
+            </div> -->
+        </div>
+
+        <!-- ====BUDGET MANAGEMENT ENDS===-->
+
+        <!-- RISK MANAGEMENT -->
+        <div class="report-goals-section my-4">
+            <div class="report-goals-section__header">
+                <img class="img-fluid report-goals-section__header--flag" width="45"
+                    src="/assets/images/flags/{{ report?.risk.score <= 40 && 'flag-red' || (report?.risk.score > 40 && report?.risk.score <= 69 ) && 'flag-orange' || report?.risk.score >=70 && 'flag-green' }}.svg"
+                    alt="flag-red">
+                <div class="goal-header">
+                    <p class="goal-header-middle">Risk Management Report</p>
+                    <p class="goal-header-bottom">Your Risk Management Score is {{report.risk.score}}%! <img
+                            class="header-emoji"
+                            src="/assets/images/emojies/{{report?.risk.score <=40 ? 'sad' : (report?.risk.score >=41 && report?.risk.score <=69) && 'happy' || report?.risk.score >=70 && 'star-eyes' }}.svg"
+                            alt="emoji"> </p>
+                </div>
+            </div>
+
+            <!-- ===#PROGRESS BAR=== -->
+            <div class="report-graph">
+                <p class="budget-progress-title budget-progress-title--18 text-center">
+                    Financial Protection Status</p>
+                <!-- ===#BUDGET PROGRESS=== -->
+                <div class="budget-progress ">
+                    <div class="budget-progress-indicator-wrapper progress-indictor"
+                        [ngStyle]="{'left.%': report.risk.score - 3 }">
+                        <div class="budget-progress-indicator">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===#BUDGET PROGRESS labels=== -->
+                <div class="budget-progress-label">
+                    <p>Need Help</p>
+                    <p>Risky</p>
+                    <p>Normal</p>
+                    <!-- <p>Good</p>
+                    <p>Excellent</p> -->
+                </div>
+            </div>
+
+
+            <div class="report-goals-section__goal-overview">
+                <div>
+                    <div class="report-goals-section__goal-score">
+                        <h4 class="color-section__header ">Analysis</h4>
+                    </div>
+                    <div class="score-points">
+                        <div class="report__para">
+                            <p class="font-400">
+                                {{report.risk.info.overview}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ===#RISK SOLUTIONS=== -->
+            <div>
+                <div class="report-goals-section__goal-score">
+                    <h4 class="color-section__header ">Solutions</h4>
+                </div>
+                <div class="score-points ">
+                    <h4 class="report-goals-section__goal-overview__title text-center mt-2 mb-3 report-money"> Here’s
+                        how you can get a 100% on your Risk Management Score</h4>
+                    <ol type="1">
+                        <li *ngFor="let advice of report.risk.info.advice"><b>{{advice.label}}<br></b>{{advice.text}}
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+
+            <ng-container *ngFor="let comment of report?.risk.info.comments">
+                <div class="report-goals-section__factors">
+                    <div class="width-xs-46">
+                        <p class="report-goals-section__factors-title">Question</p>
+                        <h6 class="report-goals-section__factors-subtitle">{{comment.label}}</h6>
+                    </div>
+
+                    <div>
+                        <div class="report-goals-section__factors-title">Your response</div>
+                        <div class="factor-status">
+                            <img class="img-fluid factor-status__flag"
+                                src="/assets/images/flags/{{comment.value ? 'flag-green' : 'flag-red'}}.svg" alt="flag">
+                            <h6 class="report-goals-section__factors-subtitle">{{comment.value ? "Good" : "Bad"}}
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-goals-section__policy-audited mb-3">
+                    <ul class="font-400 bullets">
+                        <li *ngFor="let bullet of comment.text">{{bullet}}</li>
+                    </ul>
+                    <div class="my-4 text-center">
+                        <button *ngIf="comment.key | actionButton:comment.value"
+                            class="report-goals-section__policy-audited--btn"
+                            (click)="auditPolicy(comment.key, comment.value)">{{comment.key | actionButton:comment.value
+                            }}</button>
+                    </div>
+                </div>
+
+
+
+            </ng-container>
+
+
+
+            <!-- <div class="report-goals-section__goal-score">
+                <h4 class="color-section__header report-money">Here’s how you can get a 100% on your Budget Score</h4>
+            </div>
+
+            <div class="score-points ">
+                <ol type="1">
+                    <li *ngFor="let advice of report?.risk.info.advice">{{advice.text}}</li>
+                </ol>
+            </div> -->
+
+
+
+
+        </div>
+        <!-- RISK MANAGEMENT ENDS-->
+
+        <!-- WEALTH MANAGEMENT -->
+        <div class="report-goals-section my-4">
+            <div class="report-goals-section__header">
+                <img class="img-fluid report-goals-section__header--flag" width="45"
+                    src="/assets/images/flags/{{ report?.wealth.score <= 40 && 'flag-red' || (report?.wealth.score > 40 && report?.wealth.score <= 69 ) && 'flag-orange' || report?.wealth.score >=70 && 'flag-green' }}.svg"
+                    alt="flag-red">
+                <div class="goal-header">
+                    <p class="goal-header-middle">Wealth Management Report</p>
+                    <p class="goal-header-bottom">Your Wealth Management Score is {{report.wealth.score}}%! <img
+                            class="header-emoji"
+                            src="/assets/images/emojies/{{report?.wealth.score <=40 ? 'sad' : (report?.wealth.score >=41 && report?.wealth.score <=69) && 'happy' || report?.wealth.score >=70 && 'star-eyes' }}.svg"
+                            alt="emoji"></p>
+                </div>
+            </div>
+
+
+            <div class="report-goals-section__expense">
+                <div class="width-45">
+                    <p class="currency-text">Asset Portfolio Mix </p>
+                    <div
+                        class="status-report mt-0 {{report.answers.wealth.assets.length == 0 ? 'status-report__red ' : 'status-report__green'}}">
+                        <span class="status-report__right mt-0">
+                            {{report.answers.wealth.assets.length == 0 ? 'Unhealthy' : 'Healthy'}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="width-45">
+                    <p class="currency-text">Habit Score</p>
+                    <div
+                        class="status-report {{habitScore == true ? 'status-report__green' : 'status-report__red'}} mt-0">
+                        <span class="status-report__right ">
+                            {{habitScore == true ? 'Healthy' : 'Unhealthy'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="report-goals-section__goal-overview">
+                <div>
+                    <div class="report-goals-section__goal-score">
+                        <h4 class="color-section__header ">Analysis</h4>
+                    </div>
+                    <div class="score-points">
+                        <div class="report__para">
+                            {{report.wealth.info.overview.heading}}
+                            <ul style="list-style: none;">
+                                <li style="margin:0" *ngFor="let item of report.wealth.info.overview.objectives">
+                                    {{item}}</li>
+                            </ul>
+
+                            {{report.wealth.info.overview.note}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ===#GOALS SOLUTIONS=== -->
+            <div>
+                <div class="report-goals-section__goal-score">
+                    <h4 class="color-section__header ">Solutions</h4>
+                </div>
+                <div class="score-points ">
+                    <h4 class="report-goals-section__goal-overview__title text-center mt-2 mb-3 report-money"> Here’s
+                        how you can get a 100% on your Wealth Management Score</h4>
+                    <ol type="1">
+                        <li *ngFor="let advice of report.wealth.info.advice"><b>{{advice.label}}<br></b>{{advice.text}}
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+
+            <ng-container *ngFor="let comment of report?.wealth.info.comments">
+                <div class="report-goals-section__factors">
+                    <div class="width-xs-46">
+                        <p class="report-goals-section__factors-title">Questions</p>
+                        <h6 class="report-goals-section__factors-subtitle">{{comment.label}}</h6>
+                    </div>
+
+                    <div>
+                        <div class="report-goals-section__factors-title">How well you’re doing</div>
+                        <div class="factor-status">
+                            <img class="img-fluid factor-status__flag"
+                                src="/assets/images/flags/{{comment.value ? 'flag-green' : 'flag-red'}}.svg" alt="flag">
+                            <h6 class="report-goals-section__factors-subtitle">{{comment.value ? "Good" : "Bad"}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="report-goals-section__policy-audited mb-3">
+                    <ul class="font-400 bullets">
+                        <li *ngFor="let bullet of comment.text">{{bullet}}</li>
+                    </ul>
+
+                    <div class="my-4 text-center">
+                        <button *ngIf="comment.key | actionButton:comment.value"
+                            class="report-goals-section__policy-audited--btn"
+                            (click)="auditPolicy(comment.key, comment.value)">{{comment.key | actionButton:comment.value
+                            }}</button>
+                    </div>
+                </div>
+
+
+
+            </ng-container>
+
+        </div>
+        <!-- WEALTH MANAGEMENT ENDS-->
+
+        <!-- ==== MANAGEMENT REPORTS SECTION ENDS ==== -->
+
+    </div>
+</div>

@@ -1,0 +1,477 @@
+<!-- ===#GOALS=== -->
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalOne')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalOne')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 1</p>
+                    <div>
+                        <h4 class="primary-collapsible__title">Build fund for retirement</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">40%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">Uh oh! You’re just 40% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you need at the age of 60</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Your score is BELOW 60% which is below the average score, however, your
+                                lower
+                                age may still be an advantage. You have to dedicate the next 15 years to
+                                saving
+                                and building your retirement fund… <span (click)="scrollbottom($event)">(Read
+                                    more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Most retirement income plans are unpredictable. You don’t know how long you
+                                will
+                                live and if the money will last. You don’t know if stock/fund value will go
+                                up
+                                or down. A lifetime annuity with inflation protection is one must investment
+                                you
+                                need to do to have a secured retired life. Annuity plans are sold by
+                                Insurance
+                                companies in India and provide guaranteed monthly/annual income as long as
+                                the
+                                insured lives. Ask your financial advisor about annuity plans… <span
+                                    (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalTwo')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalTwo')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 2</p>
+                    <div>
+                        <h4 class="primary-collapsible__title">Save for child’s Education</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">30%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">
+                                Uh oh! You’re just 30% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you need for your child’s education</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                As parents, we always want our children to have the best of everything,
+                                especially education, and the steep rise in the cost of education is a
+                                source of
+                                concern for every parent. We Congratulate you for taking the important step
+                                of
+                                understanding how much funds you will need to accumulate for your child's
+                                education in future. Your Goal Achievement probability is above 60% which is
+                                a
+                                positive indication. You need to thoroughly focus on the below analysis for
+                                ensuring you have full control of things… <span (click)="scrollbottom($event)">(Read
+                                    more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                If the Kids are studious and brilliant, finance should not become a hurdle
+                                for
+                                their dreams. While building the child education fund you have to keep 2
+                                objectives in mind, 1. Risk Management and 2. Wealth creation. Losing the
+                                Earning parent is one of the biggest financial risks associated with this
+                                long-term goal, hence an insurance plan with a premium waiver option has to
+                                be
+                                compulsorily included. Secondly, start investing in a mutual fund SIP
+                                dedicated
+                                to your child’s future education expenses, goal is to capitalize on the
+                                power of
+                                compounding, a monthly SIP of at least 2.5% of your monthly income should be
+                                good enough, to begin with. These 2 strategies will certainly ensure that
+                                you
+                                can be financially fit to make your kid a Good Doctor… <span
+                                    (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalThree')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalThree')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 3</p>
+                    <div>
+                        <h4 class="primary-collapsible__title">Trip abroad with family</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">40%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">
+                                Uh oh! You’re just 30% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you need for your family trip</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Even if you’re just in the daydreaming phase, it’s never too early to get
+                                your dream holiday plan ready. The finergy process has educated you on the
+                                inflated future cost of your dream holiday. That’s a good start. Your
+                                achievement score is XX%, making it quite possible to achieve this goal on
+                                time…<span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Budget the trip and segregate the expenses as needs and wants. Your needs
+                                are travel tickets, accommodation, food and local transportation. Your wants
+                                are shopping, private taxis, peak-season trip, expensive dining etc. You
+                                should always cut down on your wants to get your trip budget within reach…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalFour')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalFour')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 4</p>
+                    <div>
+                        <h4 class="primary-collapsible__title"> Pay off loans</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">50%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">
+                                Uh oh! You’re just 50% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you need to become loan-free</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Your Goal Achievement score is above 60% which is a positive indicator that
+                                you can be debt free and achieve this goal on time. Your overall financial
+                                fitness majorly depends upon your debt management. A Loan EMI higher than
+                                30% of your monthly income will make you save less and waste your earnings
+                                on interest. The type of loan also matters, eg. personal loans, and credit
+                                card debts are bad loans, but a housing loan is a good loan…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Reschedule your loans by exploring options to transfer the loan to a
+                                Financial institute which offers lesser Interest. As a first step, you need
+                                to schedule a meeting with our expert who will do a thorough analysis of
+                                your outstanding loans and offer you a detailed solution plan. "Good" loans
+                                like housing offer you re-scheduling options, which can allow you to reduce
+                                your tenure as well as a slight increase in EMI. If the loan is more than 3
+                                years old and your income has gone up during this period, rescheduling by
+                                increasing the EMI and Reducing the tenure is a good option…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalFive')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalFive')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 5</p>
+                    <div>
+                        <h4 class="primary-collapsible__title">Generate rental income</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">40%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">
+                                Uh oh! You’re just 40% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you are short of to achieve your desired
+                                amount</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Having a rental income is one of the best ways to make recurring revenue and
+                                set yourself up for future financial growth. This extra income can reduce
+                                your worry about financial emergencies like loss of income situation. If
+                                this extra income is re-invested strategically, it can solve your retirement
+                                worry as well. Only 30% of people have a source of rental income. It's
+                                fantastic that you have set a goal to achieve the same. looking at your
+                                financial position, presently you are XX% likely to achieve this goal on
+                                time…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                The Finergy test has helped you ascertain the future value of this Goal i. e
+                                Rs. XXXXXX by 2026. As a First step, you need to focus on accumulating at
+                                least 20% of this goal value in the next 2 years. This step will ensure the
+                                downpayment required is handy with you. If needed the shortfall could be
+                                funded via debt/loan from a bank. Rentals received could be used to square
+                                off the EMI for a few years. The idea here is to achieve the goal and better
+                                your financial health…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="reports-collapsible">
+    <div class="primary-collapsible-wrapper">
+        <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goalSix')">
+            <div class="primary-collapsible__header" (click)="dropDownMenu('goalSix')">
+                <div class="d-flex ">
+                    <p class="primary-collapsible__sub-title">Goal 6</p>
+                    <div>
+                        <h4 class="primary-collapsible__title">Save for Marriage</h4>
+                        <p class="status-labels unhealthy">Unhealthy</p>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <p class="primary-collapsible__value">30%</p>
+                    <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                </div>
+            </div>
+            <div class="primary-collapsible__body">
+                <!-- ===#CONTENT=== -->
+                <div class="primary-collapsible__content">
+                    <div class="primary-collapsible__content-top">
+                        <!-- ==#PIE CHART== -->
+                        <div class="pie" style="--progress-value:20; --graph-color:{{setColor(20)}}">
+                        </div>
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-400">
+                                Uh oh! You’re just 30% likely to complete your goal
+                            </p>
+                        </div>
+                    </div>
+                    <div class="primary-collapsible__content-top">
+                        <img class="primary-collapsible__content-icon img-fluid" width="46"
+                            src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                        <div class="primary-collapsible__content-text">
+                            <p class="font-weight-700">Rs. 4,00,00,000</p> <br>
+                            <p class="font-weight-400">Total funds you need for your dream marriage</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===#ANALYSIS=== -->
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">ANALYSIS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Your Goal Score is above 60%, this is a good indicator that you will achieve
+                                your Goal on time. A wedding event is more about temptations and less about
+                                financial discipline. Be Firm to avoid temptations or you may land up
+                                spending much more than you are prepared for. Prepare a budget and be sure
+                                what your needs are and your wants are…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box analysis-box">
+                    <p class="status-labels status-labels--lg normal font-weight-800">SOLUTIONS</p>
+                    <ul class="primary-list">
+                        <li>
+                            <p>
+                                Self-funding your marriage is a short-term goal, the investments for this
+                                goal have to be risk-free. Keeping risk factors in mind, you should invest
+                                in mutual fund instruments, especially large-cap funds. A SIP mode is the
+                                most ideal…
+                                <span (click)="scrollbottom($event)">(Read more)</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===#END GOALS=== -->

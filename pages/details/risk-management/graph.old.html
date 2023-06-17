@@ -1,0 +1,96 @@
+<div class="line-graph ">
+    <div class="graph__lables">
+        <p class="graph__lables-text">Excellent</p>
+    </div>
+    <div class="graph__lables">
+        <p class="graph__lables-text">Good</p>
+    </div>
+    <div class="graph__lables">
+        <p class="graph__lables-text">Normal</p>
+    </div>
+    <div class="graph__lables">
+        <p class="graph__lables-text">Risky</p>
+    </div>
+    <div class="graph__lables">
+        <p class="graph__lables-text">Need Help</p>
+    </div>
+    <div class="plot-graph-data ">
+        <div class="data-node">
+            <div class="data first"></div>
+            <!-- ===#QUESTION 1=== -->
+            <div class="data-node {{graphData.questionOne ? 'top' : 'bottom'}}" *ngIf="graphData.questionOne != null">
+                <div class="data second"></div>
+                <!-- ===#QUESTION 2=== -->
+                <div class="data-node {{graphData.questionTwo ? 'top' : 'bottom'}}"
+                    *ngIf="graphData.questionTwo != null">
+                    <div class="data"></div>
+                    <!-- ===#QUESTION 3=== -->
+                    <div class="data-node {{graphData.questionThree ? 'top' : 'bottom'}}"
+                        *ngIf="graphData.questionThree != null">
+                        <div class="data"></div>
+                        <!-- ===#QUESTION 4=== -->
+                        <div class="data-node {{graphData.questionFour ? 'top' : 'bottom'}}"
+                            *ngIf="graphData.questionFour != null">
+                            <div class="data"></div>
+                            <!-- ===#QUESTION 5=== -->
+                            <div class="data-node {{graphData.questionFive ? 'top' : 'bottom'}}"
+                                *ngIf="graphData.questionFive != null">
+                                <div class="data"></div>
+                                <!-- ===#QUESTION 6=== -->
+                                <div class="data-node {{graphData.questionSix ? 'top' : 'bottom'}}"
+                                    *ngIf="graphData.questionSix != null">
+                                    <div class="data"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+    </div>
+</div>
+
+
+
+<div class="position-relative w-100">
+    <div class="line-graph__lables-wrapper">
+        <div class="line-graph__lables">
+            <p class="line-graph__lables-text">Excellent</p>
+        </div>
+        <div class="line-graph__lables">
+            <p class="line-graph__lables-text">Good</p>
+        </div>
+        <div class="line-graph__lables">
+            <p class="line-graph__lables-text">Normal</p>
+        </div>
+        <div class="line-graph__lables">
+            <p class="line-graph__lables-text">Risky</p>
+        </div>
+        <div class="line-graph__lables">
+            <p class="line-graph__lables-text">Need Help</p>
+        </div>
+    </div>
+
+    <svg class="line-graph" height="260" width="100%" preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <g class="line-graph__lines">
+            <g *ngFor="let item of graphData ; let i = index">
+                <line [attr.x1]="item.x1+ '%'" [attr.x2]="item.x2+'%'"
+                    [attr.y1]="item.y1+'%'" [attr.y2]="item.y2+ '%'">
+                    <!-- <animate attributeName="x2" from="0" to="{{item.x2+'%'}}" begin="100ms"
+                dur="0.2s" />
+            <animate attributeName="y2" from="0" to="{{item.y2+'%'}}" begin="100ms"
+                dur="0.2s" /> -->
+                </line>
+            </g>
+            <g *ngFor="let item of graphData ; let i = index">
+                <circle [attr.cx]="item.x2+ '%'" [attr.cy]="item.y2+'%'" r="7"
+                    stroke="white" stroke-width="2" fill="red" fill="#ffd266" />
+            </g>
+            <circle r="7" stroke="white" stroke-width="2" fill="#ffd266" cx="0%"
+                cy="0%"></circle>
+        </g>
+    </svg>
+</div>

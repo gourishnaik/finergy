@@ -1,0 +1,155 @@
+<div class="site-container-md">
+    <h3 class="primary-title primary-title--center mt-3 mt-lg-0">Basic Info</h3>
+    <form [formGroup]="basicInfoForm">
+        <div class="box-wrapper box-grid">
+            <div class="box" >
+                <div class="box-header">
+                    <span class="box-header-title-index">1</span>
+                    <h3 class="box-header-title">Your date of birth</h3>
+                </div>
+                <div class="box-content">
+                    <div class="date-picker position-relative" [formGroup]="birthDateInputs" id="dateOfBirth">
+
+                        <input class="form-input dd" formControlName="day"
+                            [class.box-error]="(birthDate?.dirty || birthDate?.touched) && (birthDate?.errors?.['required']  || birthDate?.errors?.['invalidBirthDate'])"
+                            type="text" placeholder="DD" readonly>
+
+                        <input class="form-input mm" formControlName="month"
+                            [class.box-error]="(birthDate?.dirty || birthDate?.touched) && (birthDate?.errors?.['required']  || birthDate?.errors?.['invalidBirthDate'])"
+                            type="text" placeholder="MM" readonly>
+
+                        <input class="form-input yyy" formControlName="year"
+                            [class.box-error]="(birthDate?.dirty || birthDate?.touched) && (birthDate?.errors?.['required']  || birthDate?.errors?.['invalidBirthDate'])"
+                            type="text" placeholder="YYYY" readonly>
+                        <!-- ===#DAY DROPDOWN=== -->
+                        <!-- <div class="datepicker-dropdown day" *ngIf="checkActiveDropDown('day')">
+                            <ul>
+                                <li *ngFor="let items of [].constructor(calenderDays); let i = index"
+                                    (click)="daySelected($event,i+1)">{{i+1}}</li>
+                            </ul>
+                        </div> -->
+                        <!-- ===#MONTH DROPDOWN=== -->
+                        <!-- <div class="datepicker-dropdown month" *ngIf="checkActiveDropDown('month')">
+                            <ul>
+                                <li *ngFor="let items of calenderMonths; let i = index" (click)="
+                                    monthSelected($event,items)">{{items }} </li>
+                            </ul>
+                        </div> -->
+                        <!-- ===#MONTH DROPDOWN=== -->
+                        <!-- <div class="datepicker-dropdown year" *ngIf="checkActiveDropDown('year')">
+                            <ul>
+                                <li *ngFor="let items of calenderYear; let i = index"
+                                    (click)="yearSelected($event,items)">
+                                    {{items}}</li>
+                            </ul>
+                        </div> -->
+                    </div>
+
+                    <div *ngIf="birthDate?.invalid && (birthDate?.dirty || birthDate?.touched)">
+                        <p class="error-msg" *ngIf="birthDate?.errors?.['required']">
+                            Birthdate is required.
+                        </p>
+                        <p class="error-msg"
+                            *ngIf="birthDate?.errors?.['invalidBirthDate'] && !birthDate?.errors?.['required']">
+                            Please enter valid birthdate.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="box" [class.scrollNext]="numberOfKids?.errors">
+                <div class="box-header">
+                    <span class="box-header-title-index">2</span>
+                    <h3 class="box-header-title">Number of kids you have?</h3>
+                </div>
+                <div class="box-content">
+                    <div class="form-selectable-group">
+                        <div class="form-selectable__wrapper col-6 col-sm-4"
+                            *ngFor="let item of numberOfKidsOptions, let i = index">
+                            <input type="radio" formControlName="NumberOfKids" [value]="item" name="NumberOfKids"
+                                id="numberOfKids{{i}}" (change)="checkValid($event,'NumberOfKids');">
+                            <label class="form-selectable"
+                                [class.box-error]="(numberOfKids?.dirty || numberOfKids?.touched) && numberOfKids?.errors?.['required']"
+                                for="numberOfKids{{i}}">
+                                <div class="d-flex align-items-center">
+                                    <span class="form-selectable__toggle radio"></span>{{item == 5 ? item : item }}
+                                </div>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!-- ===#ERROR MESSAGE=== -->
+                    <div *ngIf="numberOfKids?.dirty || numberOfKids?.touched">
+                        <p class="error-msg" *ngIf="numberOfKids?.invalid">
+                            Please select number of kids
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="box" [class.scrollNext]="houseType?.errors">
+                <div class="box-header">
+                    <span class="box-header-title-index">3</span>
+                    <h3 class="box-header-title">Your house is</h3>
+                </div>
+                <div class="box-content">
+                    <div class="form-selectable-group">
+                        <div class="form-selectable__wrapper  col-6 col-sm-4 form-selectable__wrapper--min-width"
+                            *ngFor="let item of houseTypeOptions, let i = index">
+                            <input type="radio" formControlName="HouseType" [value]="item" name="HouseType"
+                                id="houseType{{i}}" (click)="checkValid($event,'HouseType');">
+                            <label class="form-selectable"
+                                [class.box-error]="(houseType?.dirty || houseType?.touched) && houseType?.errors?.['required']"
+                                for="houseType{{i}}">
+                                <div class="d-flex align-items-center">
+                                    <span class="form-selectable__toggle radio"></span> {{item}}
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- ===#ERROR MESSAGE=== -->
+                    <div *ngIf="houseType?.dirty || houseType?.touched">
+                        <p class="error-msg" *ngIf="houseType?.errors?.['required']">
+                            Please select house type
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="box" [class.scrollNext]="totalFamilyEarning?.errors">
+                <div class="box-header">
+                    <span class="box-header-title-index">4</span>
+                    <div>
+                        <h3 class="box-header-title">Total monthly family earnings </h3>
+                        <p class="box-header-sub-title">Family income from all sources including salary, business,
+                            rental income etc</p>
+                    </div>
+
+
+                </div>
+                <!-- mask=' 0,000 || 00,000 || 0,00,000 || 00,00,000 || 0,00,00,000 '-->
+                
+                <div class="box-content" >
+                    <div class="form-input__wrapper">
+                        <input type="tel" class="form-input rupee-prefix totalMonthly"
+                            [class.box-error]="( totalFamilyEarning?.touched) && (totalFamilyEarning?.errors?.['required'] || totalFamilyEarning?.errors?.['min']|| totalFamilyEarning?.errors?.['max']) "
+                            formControlName="TotalFamilyEarning" (keypress)="scrollParent($event)" mask='separator.2' maxlength="11"
+                          thousandSeparator="," placeholder="Enter value">
+                        <!-- ===#ERROR MESSAGE=== -->
+                        <div *ngIf="totalFamilyEarning?.touched">
+                            <p class="error-msg" *ngIf="totalFamilyEarning?.errors?.['required']">
+                                Please enter family income
+                            </p>
+                            <p class="error-msg"
+                                *ngIf="totalFamilyEarning?.errors?.['min'] || totalFamilyEarning?.errors?.['max']">
+                                Please enter an amount between ₹1000 - ₹1 Crore
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- routerLink="/details/goals" -->
+        <button class="btn primary-button primary-button--max-width submitButton mx-auto mt-4 btn-loader" (click)="saveForm($event)"
+            [disabled]="loading" [class.loaded]="loading">
+            Let’s Get Started
+        </button>
+    </form>
+</div>

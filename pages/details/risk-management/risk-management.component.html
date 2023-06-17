@@ -1,0 +1,442 @@
+<div class="form-row scrollStart">
+    <div class="form-col-one ">
+        <div class="site-container-md graph-conatiner">
+            <!-- <h3 class="primary-title d-lg-none mb-2 mb-sm-4">Risk Management</h3> -->
+            <div class="line-graph--height" #lineGraphWrapper>
+                <div class="vectors-holder graph-holder" [class.fixedElement]="fixedElement">
+                    <div class="vectors-top">
+                        <img src="/assets/images/vectors/circles.svg" alt="vectors">
+                    </div>
+                    <div class="vectors-holder__media-wrapper">
+                        <div class="line-graph-box">
+                            <h3 class="font-18 text-center text-white">Are you prepared for the future ?</h3>
+                            <div class="line-graph-wrapper">
+
+                                <div class="position-relative w-100">
+                                    <div class="line-graph__lables-wrapper">
+                                        <!-- <div class="line-graph__lables">
+                                            <p class="line-graph__lables-text">Excellent</p>
+                                        </div>
+                                        <div class="line-graph__lables">
+                                            <p class="line-graph__lables-text">Good</p>
+                                        </div> -->
+                                        <div class="line-graph__lables">
+                                            <p class="line-graph__lables-text">Normal</p>
+                                        </div>
+                                        <div class="line-graph__lables">
+                                            <p class="line-graph__lables-text">Risky</p>
+                                        </div>
+                                        <div class="line-graph__lables">
+                                            <p class="line-graph__lables-text">Need Help</p>
+                                        </div>
+                                    </div>
+
+                                    <svg class="line-graph" height="260" width="100%" preserveAspectRatio="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g class="line-graph__lines">
+                                            <g *ngFor="let item of graphData ; let i = index">
+                                                <line [attr.x1]="item.x1+ '%'" [attr.x2]="item.x2+'%'"
+                                                    [attr.y1]="item.y1+'%'" [attr.y2]="item.y2+ '%'">
+                                                    <!-- <animate attributeName="x2" from="0" to="{{item.x2+'%'}}" begin="100ms"
+                                                dur="0.2s" />
+                                            <animate attributeName="y2" from="0" to="{{item.y2+'%'}}" begin="100ms"
+                                                dur="0.2s" /> -->
+                                                </line>
+                                            </g>
+                                            <g *ngFor="let item of graphData ; let i = index">
+                                                <circle [attr.cx]="item.x2+ '%'" [attr.cy]="item.y2+'%'" r="7"
+                                                    stroke="white" stroke-width="2" fill="red" fill="#ffd266" />
+                                            </g>
+                                            <circle r="7" stroke="white" stroke-width="2" fill="#ffd266" cx="0%"
+                                                cy="0%"></circle>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <!-- ===#BUDGET PROGRESS=== -->
+                                <!-- <div class="line-graph-progress">
+                                    <div class="line-graph-progress-indicator-wrapper">
+                                        <div class="progress-indictor" [ngStyle]="{'bottom.%': percentage}"></div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vectors-bottom">
+                        <img src="/assets/images/vectors/waves.svg" alt="vectors">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-col-two">
+        <div class="site-container-md">
+            <div class="mb-4 header-top">
+                <h3 class="primary-title mb-2 mb-lg-3">Risk Management</h3>
+                <p class="sub-title ">This section will help us understand whether you prepare for Financial risks that
+                    may arise in the future.</p>
+            </div>
+            <form [formGroup]="riskManagementForm">
+
+                <!-- ===#QUESTION 1=== -->
+                <div class="box" [class.scrollNext]="emergencyFund?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- <h3 class="box-header-title">Do you have an emergency fund for unforeseen expenses
+                                        that may arise in the next 3 years?</h3> -->
+                                    <h3 class="box-header-title">
+                                        Do you have at least ₹ {{emergency |
+                                        inrcurrency}} saved for emergency expenses?
+                                    </h3>
+
+                                </div>
+                                <!-- <p class="box-header-sub-title">Your family should have saved at least ₹ {{emergency |
+                                    currency:undefined:"":'1.0-0'}} for
+                                    emergency expenses (6 times the monthly income).
+                                </p> -->
+                                <p class="box-header-sub-title">
+                                    Your family should have an emergency fund of at least 6 times the monthly income.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper col-6 ">
+                                    <input type="radio" formControlName="EmergencyFund" [value]="true"
+                                        name="EmergencyFund" id="emergencyFundYes"
+                                        (change)="renderGraph(true, 0);checkValid($event,'EmergencyFund');">
+                                    <label class="form-selectable" for="emergencyFundYes"
+                                        [class.box-error]="(emergencyFund?.dirty || emergencyFund?.touched) && emergencyFund?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="EmergencyFund" name="EmergencyFund"
+                                        value="false" id="emergencyFundNo" [value]="false"
+                                        (change)="checkValid($event,'EmergencyFund');renderGraph(false, 0)">
+                                    <label class="form-selectable" for="emergencyFundNo"
+                                        [class.box-error]="(emergencyFund?.dirty || emergencyFund?.touched) && emergencyFund?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="emergencyFund?.dirty || emergencyFund?.touched">
+                                <p class="error-msg" *ngIf="emergencyFund?.errors?.['required']">
+                                    Please select your risk-factor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/fearFace.svg"
+                                alt="grinning">
+                            <p class="suggetion-secondaryText">48%</p>
+                        </div>
+                        <p class="suggetion-primaryText">
+                            of people say that they dread being in a situation to borrow money from friends/family in
+                            times of financial emergencies
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION 2=== -->
+                <div class="box" [class.scrollNext]="accidentFunds?.errors" [class.disabled]="emergencyFund?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- <h3 class="box-header-title">Do you have disability insurance in case of a
+                                        disability due to an accident that may keep you from working?</h3> -->
+                                    <h3 class="box-header-title">
+                                        Do you have disability insurance of at least ₹ {{disability |
+                                        inrcurrency}} ?
+                                    </h3>
+
+                                </div>
+                                <!-- <p class="box-header-sub-title">Your family should ideally save approximately 50 times
+                                    the monthly income for any disability that may leave you unable
+                                    to work</p> -->
+                                <p class="box-header-sub-title">
+                                    Your family should ideally save approximately 50 times your monthly income for any
+                                    disability that may leave you unable to work
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper col-6 ">
+                                    <input type="radio" formControlName="AccidentFunds" [value]="true"
+                                        name="AccidentFunds" id="accidentFundsYes"
+                                        (change)="checkValid($event,'AccidentFunds');renderGraph(true, 1)">
+                                    <label class="form-selectable" for="accidentFundsYes"
+                                        [class.box-error]="(accidentFunds?.dirty || accidentFunds?.touched) && accidentFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="AccidentFunds" [value]="false"
+                                        name="AccidentFunds" id="accidentFundsNo"
+                                        (change)="checkValid($event,'AccidentFunds');renderGraph(false, 1)">
+                                    <label class="form-selectable" for="accidentFundsNo"
+                                        [class.box-error]="(accidentFunds?.dirty || accidentFunds?.touched) && accidentFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="accidentFunds?.dirty || accidentFunds?.touched">
+                                <p class="error-msg" *ngIf="accidentFunds?.errors?.['required']">
+                                    Please select your risk-factor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32"
+                                src="/assets/images/emojies/headbandage.svg" alt="headbandage">
+                            <p class="suggetion-secondaryText">11%</p>
+                        </div>
+                        <p class="suggetion-primaryText">
+                            India tops the world ranking with 11% of global death in road accidents
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- ===#QUESTION 3=== -->
+                <div class="box" [class.scrollNext]="termFunds?.errors" [class.disabled]="accidentFunds?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- <h3 class="box-header-title">
+                                        Do you have a term plan as a safety net for your family in case of premature
+                                        death?
+                                    </h3> -->
+                                    <h3 class="box-header-title">
+                                        Do you have a term plan of at least ₹ {{term | inrcurrency}}
+                                        in case of premature death?
+                                    </h3>
+
+                                </div>
+                                <!-- <p class="box-header-sub-title">Your family should have term insurance of at least ₹
+                                    {{term |
+                                    currency:undefined:"":'1.0-0'}} (100 times the monthly income minimum).
+                                </p> -->
+                                <p class="box-header-sub-title">
+                                    Your family should have term insurance of at least 100 times the monthly income as a
+                                    safety net for your family.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class=" col-sm-10 col-xl-8">
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper col-6 ">
+                                    <input type="radio" formControlName="TermFunds" [value]="true" name="TermFunds"
+                                        id="saftyFundsYes"
+                                        (change)="checkValid($event,'TermFunds');renderGraph(true, 2)">
+                                    <label class="form-selectable" for="saftyFundsYes"
+                                        [class.box-error]="(termFunds?.dirty || termFunds?.touched) && termFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" (change)="checkValid($event,'TermFunds');renderGraph(false, 2)"
+                                        formControlName="TermFunds" name="TermFunds" [value]="false" id="saftyFundsNo">
+                                    <label class="form-selectable" for="saftyFundsNo"
+                                        [class.box-error]="(termFunds?.dirty || termFunds?.touched) && termFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="termFunds?.dirty || termFunds?.touched">
+                                <p class="error-msg" *ngIf="termFunds?.errors?.['required']">
+                                    Please select your risk-factor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32"
+                                src="/assets/images/emojies/relievedface.svg" alt="grinning">
+                            <p class="suggetion-secondaryText">16%</p>
+                        </div>
+                        <!-- <p class="suggetion-primaryText">A lot of Indians have bought Life insurance coverage
+                            post-pandemic</p> -->
+                        <p class="suggetion-primaryText">
+                            of Indians have bought Life insurance coverage post-pandemic
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION 4=== -->
+                <div class="box" [class.scrollNext]="healthRisk?.errors" [class.disabled]="termFunds?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- <h3 class="box-header-title">Do you have health insurance to stay ahead of
+                                        health-related risks and expenses?</h3> -->
+                                    <h3 class="box-header-title">
+                                        Do you have insurance coverage of at least ₹ {{health}} to stay ahead of
+                                        health-related expenses?
+                                    </h3>
+                                </div>
+                                <!-- <p class="box-header-sub-title">Your family should have insurance coverage of at least
+                                    ₹ {{health}}
+                                </p> -->
+                                <p class="box-header-sub-title">
+                                    As per your current lifestyle, your family should have insurance coverage of at
+                                    least ₹ {{health}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper col-6 ">
+                                    <input type="radio" formControlName="HealthRisk" [value]="true" name="HealthRisk"
+                                        id="healthRiskYes"
+                                        (change)="checkValid($event,'HealthRisk');renderGraph(true, 3)">
+                                    <label class="form-selectable" for="healthRiskYes"
+                                        [class.box-error]="(healthRisk?.dirty || healthRisk?.touched) && healthRisk?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="HealthRisk" [value]="false" name="HealthRisk"
+                                        id="healthRiskNo"
+                                        (change)="checkValid($event,'HealthRisk');renderGraph(false, 3)">
+                                    <label class="form-selectable" for="healthRiskNo"
+                                        [class.box-error]="(healthRisk?.dirty || healthRisk?.touched) && healthRisk?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="healthRisk?.dirty || healthRisk?.touched">
+                                <p class="error-msg" *ngIf="healthRisk?.errors?.['required']">
+                                    Please select your risk-factor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32"
+                                src="/assets/images/emojies/thermometerFace.svg" alt="emoji">
+                            <p class="suggetion-secondaryText">35%</p>
+                        </div>
+                        <p class="suggetion-primaryText">
+                            of people compromise on health treatment due to financial pressure
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION 5=== -->
+                <div class="box" [class.scrollNext]="retirementFunds?.errors" [class.disabled]="healthRisk?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <!-- <h3 class="box-header-title">Did you build enough funds for your retirement?</h3> -->
+                                    <h3 class="box-header-title">
+                                        Do you have enough funds for your retirement such that you can spend ₹ 50,000
+                                        monthly?
+                                    </h3>
+                                </div>
+                                <p class="box-header-sub-title">
+                                    In order to maintain your current lifestyle post-retirement, you need to have a
+                                    retirement fund of at least ₹ 1,00,00,000/-.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper col-6 ">
+                                    <input type="radio" formControlName="RetirementFunds" [value]="true"
+                                        name="RetirementFunds" id="retirementFundsYes"
+                                        (change)="checkValid($event,'RetirementFunds');renderGraph(true, 4)">
+                                    <label class="form-selectable" for="retirementFundsYes"
+                                        [class.box-error]="(retirementFunds?.dirty || retirementFunds?.touched) && retirementFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="RetirementFunds" [value]="false"
+                                        name="RetirementFunds" id="retirementFundsNo"
+                                        (change)="checkValid($event,'RetirementFunds');renderGraph(false, 4)">
+                                    <label class="form-selectable" for="retirementFundsNo"
+                                        [class.box-error]="(retirementFunds?.dirty || retirementFunds?.touched) && retirementFunds?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="retirementFunds?.dirty || retirementFunds?.touched">
+                                <p class="error-msg" *ngIf="retirementFunds?.errors?.['required']">
+                                    Please select your risk-factor
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32"
+                                src="/assets/images/emojies/oldman-bald.svg" alt="emoji">
+                            <p class="suggetion-secondaryText">57%</p>
+                        </div>
+                        <p class="suggetion-primaryText">
+                            of people have to depend on their children for money during their retirement phase
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-action">
+
+
+                    <button class="btn primary-button mx-auto submitButton btn-loader" (click)="saveForm($event)"
+                        [class.btn-disabled]="!riskManagementForm.valid || loading" [class.loaded]="loading">
+                        Save and Next
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

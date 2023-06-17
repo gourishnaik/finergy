@@ -1,0 +1,29 @@
+.vectors {
+    @media (max-width: 991px) {
+        &-holder__media-wrapper {
+            margin-top: -53px;
+        }
+        &-top {
+            top: 25px;
+            display: flex;
+            justify-content: space-between;
+            .vectors-media {
+                &:first-child {
+                    left: -25px;
+                }
+                &:nth-child(2) {
+                    right: -25px;
+                }
+            }
+        }
+        &-bottom {
+            display: none;
+        }
+    }
+}
+
+.form-col-one {
+    @media (max-width: 991px) {
+        background: linear-gradient(180deg, #fff 70%, transparent 0);
+    }
+}

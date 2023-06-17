@@ -1,0 +1,338 @@
+<div class="reports-wrapper">
+    <!-- ===#LEFT SIDE (REPORT SECTION)=== -->
+    <div class="reports-score">
+        <div class="reports-score__wrapper">
+
+            <div class="reports-score__data position-relative">
+                <button routerLink="/details/wealth-management" class="back-buttton"><img
+                        src="/assets/images/icons/arrow-white.svg" alt="arrow icon" class="img-fluid"></button>
+                <div>
+                    <!-- ===#VECTORS TOP== -->
+                    <div class="reports-score__vectors-top">
+                        <img src="/assets/images/vectors/circles.svg" alt="vectors">
+                    </div>
+                    <img class="reports-score__data-vector img-fluid" src="/assets/images/vectors/reports/ripple.svg"
+                        alt="ripple" />
+                    <div class="reports-score__info">
+
+                        <div>
+                            <img *ngIf="report.finergy.score" class="reports-score__info-flag"
+                                src="assets/images/flags/{{ report.finergy.score <= 40 && 'flag-red' || (report.finergy.score > 40 && report.finergy.score <= 69 ) && 'flag-orange' || report.finergy.score >=70 && 'flag-green' }}.svg">
+                        </div>
+
+                        <h3 class="reports-score__info-title">Your Finergy level is</h3>
+                        <p class="reports-score__info-value" [style.color]="report.finergy.score | scoreColor">
+                            {{report.finergy.score}}%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reports-score__content">
+                <h3 class="reports-score__title">
+                    {{report.finergy.heading}}
+                </h3>
+                <p class="reports-score__text">
+                    {{report.finergy.note}}
+                </p>
+            </div>
+            <!-- ===#VECTORS BOTTOM== -->
+            <div class="reports-score__vectors-bottom">
+                <img src="/assets/images/vectors/waves.svg" alt="vectors">
+            </div>
+        </div>
+    </div>
+    <!-- ===#END LEFT SIDE=== -->
+
+    <!-- ===#RIGHT SIDE === -->
+    <div class="reports-details">
+        <div class="goals-collapsible-wrapper">
+            <!-- ===#GOALS=== -->
+            <div *ngFor="let goal of report.goals;let i=index;"  class="reports-collapsible goal{{i}}">
+                <div class="primary-collapsible-wrapper">
+                    <div class="primary-collapsible" [class.show]="activeDropDowns.includes('goal'+i)">
+                        <div class="primary-collapsible__header" (click)="dropDownMenu('goal'+i)">
+                            <div class="d-flex ">
+                                <p class="primary-collapsible__sub-title">Goal {{i+1}} </p>
+                                <div>
+                                    <h4 class="primary-collapsible__title">{{goal.heading}}</h4>
+                                    <p class="status-labels {{goal.score>70 ? 'healthy': 'unhealthy'}}">{{goal.score>70?
+                                        'Healthy': 'Unhealthy'}}</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <p class="primary-collapsible__value">{{goal.score}}%</p>
+                                <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                            </div>
+                        </div>
+
+
+                        <div class="primary-collapsible__body">
+                            <!-- ===#CONTENT=== -->
+                            <div class="primary-collapsible__content">
+                                <div class="primary-collapsible__content-top">
+
+                                    <!-- ==#PIE CHART== -->
+                                    <div class="pie"
+                                        style="--progress-value:{{goal.score}}; --graph-color :{{goal.score | scoreColor}}">
+                                    </div>
+                                    <div class="primary-collapsible__content-text">
+                                        <p class="font-weight-400">{{goal.note}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="primary-collapsible__content-top">
+                                    <img class="primary-collapsible__content-icon img-fluid" width="46"
+                                        src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                                    <div class="primary-collapsible__content-text">
+                                        <p class="font-weight-700">Rs.{{goal.amount|inrcurrency}} &nbsp;</p>
+                                        <p class="font-weight-400">{{goal.subtext}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===#ANALYSIS=== -->
+                            <app-section-comments [comments]="goal.comments">
+                            </app-section-comments>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===#END GOALS=== -->
+        </div>
+
+
+        <div class="reports-management-wrapper">
+            <!-- ===#Budget Management === -->
+            <div class="reports-collapsible scrollBudget" *ngIf="report.budget.score > -1">
+                <div class="primary-collapsible-wrapper">
+                    <div class="primary-collapsible" [class.show]="activeDropDowns.includes('budgetManagement')">
+                        <div class="primary-collapsible__header" (click)="dropDownMenu('budgetManagement')">
+                            <div class="d-flex align-items-center">
+                                <!-- ==#PIE CHART== -->
+                                <div class="pie"
+                                    style="--progress-value:{{report.budget.score}}; --graph-color:{{report.budget.score| scoreColor}}">
+                                </div>
+                                <div class="ms-4">
+                                    <h4 class="primary-collapsible__title">{{report.budget.heading}}</h4>
+                                    <p class="status-labels {{report.budget.score >70 ? 'healthy': 'unhealthy'}}">
+                                        {{report.budget.score >70? 'Healthy': 'Unhealthy'}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <p class="primary-collapsible__value">{{report.budget.score}}%</p>
+                                <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                            </div>
+                        </div>
+                        <div class="primary-collapsible__body">
+                            <!-- ===#CONTENT=== -->
+                            <div class="primary-collapsible__content">
+                                <div class="primary-collapsible__content-top">
+                                    <img class="primary-collapsible__content-icon"
+                                        src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                                    <div class="primary-collapsible__content-text">
+                                        <p class="font-weight-800">Rs.{{report.budget.amount| inrcurrency}}/-
+                                        </p>
+                                        <p class="font-weight-700">&nbsp;{{report.budget.note}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="primary-collapsible__content-bottom">
+                                    <div class="reports-status-info">
+                                        <div class="reports-status-info__col">
+                                            <p class="reports-status-info-text-top">Amount spent on <u
+                                                    class="font-weight-800">Needs</u></p>
+                                            <p class="reports-status-info-text-bottom">Rs
+                                                {{report.budget.subtext | splitText:0|inrcurrency}}/month
+                                            </p>
+                                            <div class="text-center">
+                                                <p
+                                                    class="status-labels font-weight-700 {{needsStatus == true ? 'healthy' : 'unhealthy'}} ">
+                                                    {{needsStatus == true ? 'Healthy' : 'Unhealthy'}}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <div class="reports-status-info__separator"></div>
+                                        <div class="reports-status-info__col">
+                                            <p class="reports-status-info-text-top">Amount spent on <u
+                                                    class="font-weight-800">Wants</u></p>
+                                            <p class="reports-status-info-text-bottom"> Rs
+                                                {{report.budget.subtext |splitText:1|inrcurrency}}/month
+                                            </p>
+                                            <div class="text-center">
+                                                <p
+                                                    class="status-labels font-weight-700  {{wantsStatus == true ? 'healthy' : 'unhealthy'}}">
+                                                    {{wantsStatus == true ? 'Healthy' : 'Unhealthy'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===#ANALYSIS=== -->
+                            <app-section-comments [comments]="report.budget.comments">
+                            </app-section-comments>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===#RISK MANAGEMENT=== -->
+            <div class="reports-collapsible scrollRisk" *ngIf="report.risk.score > -1">
+                <div class="primary-collapsible-wrapper">
+                    <div class="primary-collapsible " [class.show]="activeDropDowns.includes('riskManagement')">
+                        <div class="primary-collapsible__header" (click)="dropDownMenu('riskManagement')">
+                            <div class="d-flex align-items-center">
+                                <!-- ==#PIE CHART== -->
+                                <div class="pie"
+                                    style="--progress-value:{{report.risk.score}}; --graph-color:{{(report.risk.score |scoreColor) }}">
+                                </div>
+                                <div class="ms-4">
+                                    <h4 class="primary-collapsible__title">{{report.risk.heading}}</h4>
+                                    <p class="status-labels {{report.risk.score >70? 'healthy': 'unhealthy'}} ">
+                                        {{report.risk.score >70? 'Healthy': 'Unhealthy'}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <p class="primary-collapsible__value">{{report.risk.score}}%</p>
+                                <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                            </div>
+                        </div>
+                        <div class="primary-collapsible__body">
+                            <!-- ===#CONTENT=== -->
+                            <div class="primary-collapsible__content">
+                                <div class="primary-collapsible__content-top">
+                                    <img class="primary-collapsible__content-icon"
+                                        src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                                    <div class="primary-collapsible__content-text">
+                                        <p class="font-weight-700">{{report.risk.note}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="primary-collapsible__content-bottom">
+                                    <!-- ===#PROGRESS BAR=== -->
+                                    <div>
+                                        <p class="budget-progress-title budget-progress-title--18 text-center">
+                                            Financial Protection Status</p>
+                                        <!-- ===#BUDGET PROGRESS=== -->
+                                        <div class="budget-progress ">
+                                            <div class="budget-progress-indicator-wrapper progress-indictor"
+                                                [ngStyle]="{'left.%': report.risk.score - 3 }">
+                                                <div class="budget-progress-indicator">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- ===#BUDGET PROGRESS labels=== -->
+                                        <div class="budget-progress-label">
+                                            <p>Need Help</p>
+                                            <p>Risky</p>
+                                            <p>Normal</p>
+                                            <!-- <p>Good</p>
+                                            <p>Excellent</p> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===#ANALYSIS=== -->
+                            <app-section-comments [comments]="report.risk.comments">
+                            </app-section-comments>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===#Wealth Management  === -->
+            <div class="reports-collapsible scrollWealth" *ngIf="report.wealth.score > -1">
+                <div class="primary-collapsible-wrapper">
+                    <div class="primary-collapsible" [class.show]="activeDropDowns.includes('wealthManagement')">
+                        <div class="primary-collapsible__header" (click)="dropDownMenu('wealthManagement')">
+                            <div class="d-flex align-items-center">
+                                <!-- ==#PIE CHART== -->
+                                <div class="pie"
+                                    style="--progress-value:{{report.wealth.score}}; --graph-color :{{report.wealth.score | scoreColor}}">
+                                </div>
+                                <div class="ms-4">
+                                    <h4 class="primary-collapsible__title">{{report.wealth.heading}}</h4>
+                                    <p class="status-labels {{report.wealth.score >70? 'healthy' : 'unhealthy'}}">
+                                        {{report.wealth.score >70 ?'Healthy': 'Unhealthy'}}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <p class="primary-collapsible__value">{{report.wealth.score}}%</p>
+                                <img class="toggle-icon" src="/assets/images/icons/toggle-white.svg" alt="toggle">
+                            </div>
+                        </div>
+                        <div class="primary-collapsible__body">
+                            <!-- ===#CONTENT=== -->
+                            <div class="primary-collapsible__content">
+                                <div class="primary-collapsible__content-top">
+                                    <img class="primary-collapsible__content-icon"
+                                        src="/assets/images/emojies/money-bag.svg" alt="money-bag" />
+                                    <div class="primary-collapsible__content-text">
+                                        <p class="font-weight-700">{{report.wealth.note}} {{report.wealth.amount
+                                            |inrcurrency}}/month
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="primary-collapsible__content-bottom">
+                                    <div class="reports-status-info">
+                                        <div class="reports-status-info__col">
+                                            <p class="reports-status-info-text-top">Asset Portfolio Mix
+                                            </p>
+                                            <div class="text-center">
+                                                <p
+                                                    class="status-labels {{report.forms.wealth.assets.length == 0 ? 'unhealthy' : 'healthy'}} healthy">
+                                                    {{report.forms.wealth.assets.length == 0 ? 'Unhealthy' : 'Healthy'}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="reports-status-info__separator"></div>
+                                        <div class="reports-status-info__col">
+                                            <p class="reports-status-info-text-top">Habit Score</p>
+                                            <div class="text-center">
+                                                <p class="status-labels {{habitScore ? 'healthy' : 'unhealthy'}} ">
+                                                    {{habitScore == true ? 'Healthy' : 'Unhealthy'}}
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===#ANALYSIS=== -->
+                            <app-section-comments [comments]="report.wealth.comments">
+                            </app-section-comments>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="reports-price-wrapper">
+            <h4 class="reports-price__text mb-3">Get a <b>detailed report</b> of your financial health with a
+                tailor-made
+                finance regimen to build your wealth for just</h4>
+            <div class="reports-price d-flex align-items-center justify-content-center">
+                <div>
+                    <p class="reports-price__old">Rs 699/-</p>
+                    <p class="reports-price__new">FREE</p>
+                </div>
+                <div class="ms-3">
+                    <!-- <p class="reports-price__discount">84% OFF</p> -->
+                    <p class="reports-price__discount">Limited period offer</p>
+                </div>
+            </div>
+            <button [ngClass]="{'scaleButton' : scaleButton}" (click)="getPdfFile()" routerLink="/report"
+                class="btn primary-button mx-auto scrollNext">
+                <img class="primary-button__icon" src="/assets/images/icons/download.svg" alt="download">
+                Download Free Report</button>
+        </div>
+
+    </div>
+    <!-- ===#END RIGHT SIDE === -->
+</div>

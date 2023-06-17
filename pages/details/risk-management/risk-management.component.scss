@@ -1,0 +1,25 @@
+.vectors-top,
+.vectors-bottom {
+    @media (max-width: 991px) {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .form-col-one {
+        background: linear-gradient(180deg, #fff 61%, transparent 0);
+    }
+}
+
+// .box {
+//     position: relative;
+//     &::after {
+//         content: "";
+//         width: 100%;
+//         background-color: gray;
+//         height: 100%;
+//         position: absolute;
+//         left: 0;
+//         top: 0;
+//     }
+// }

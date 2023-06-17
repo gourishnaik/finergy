@@ -1,0 +1,446 @@
+<div class="form-row scrollStart">
+    <div class="form-col-one">
+        <div class="site-container-md wealth-graph-conatiner">
+            <!-- <h3 class="primary-title d-lg-none mb-2 mb-sm-4">Wealth Management</h3> -->
+            <div #wealthGraph class="wealth-graph-holder--height">
+                <div class="vectors-holder mb-5 mb-lg-0 wealth-graph-holder" [class.fixedElement]="fixedElement">
+                    <div class="vectors-top">
+                        <img src="/assets/images/vectors/circles.svg" alt="vectors">
+                    </div>
+                    <div class="vectors-content">
+                        <div class="wealth-status-box">
+
+                            <div class="wealth-status-icon-wrapper">
+                                <div class="wealth-status__transform"
+                                    [ngStyle]="{'transform': 'translateY(-' + percentageEmoji + '%)'}">
+                                    <img class="img-fluid wealth-status-icon"
+                                        src="/assets/images/wealth-status/flag.svg" alt="status">
+                                    <img class="img-fluid wealth-status-icon" src="/assets/images/wealth-status/one.svg"
+                                        alt="status">
+                                    <img class="img-fluid wealth-status-icon" src="/assets/images/wealth-status/two.svg"
+                                        alt="status">
+                                    <img class="img-fluid wealth-status-icon"
+                                        src="/assets/images/wealth-status/three.svg" alt="status">
+                                    <img class="img-fluid wealth-status-icon"
+                                        src="/assets/images/wealth-status/four.svg" alt="status">
+                                    <img class="img-fluid wealth-status-icon"
+                                        src="/assets/images/wealth-status/five.svg" alt="status">
+                                    <img class="img-fluid wealth-status-icon"
+                                        src="/assets/images/emojies/moneyMouth.svg" alt="status">
+                                </div>
+                            </div>
+                            <div class="wealth-status-title">
+                                <!-- [ngStyle]="{'transform': 'translateY(-' + percentage + '%)'}" -->
+                                <div class="wealth-status-title-scroller"
+                                    [ngStyle]="{'transform': 'translateY(-' + percentage + '%)'}">
+                                    <p>Let’s get started</p>
+                                    <p>You’re not doing well!</p>
+                                    <p>You’re doing Okay!</p>
+                                    <p>You’re doing Good!</p>
+                                    <p>You’re doing Great!</p>
+                                    <p>You’re doing Amazing!</p>
+                                    <p>You’re doing Excellent!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vectors-bottom">
+                        <img src="/assets/images/vectors/waves.svg" alt="vectors">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-col-two">
+        <div class="site-container-md">
+
+            <div class="mb-4 header-top">
+                <h3 class="primary-title mb-2 mb-lg-3">Wealth Management</h3>
+                <p class="sub-title ">This section will help us check whether you're converting your Earnings into
+                    Wealth.</p>
+            </div>
+            <form [formGroup]="wealthManagementForm">
+                <!-- ===#QUESTION ONE -->
+                <div class="box" [class.scrollNext]="monthlySaving?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">Are you saving ₹ {{savings |
+                                        inrcurrency}} from your monthly income?
+                                    </h3>
+                                </div>
+                                <p class="box-header-sub-title">Ideally, you should save 15% of your total monthly
+                                    salary
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group ">
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="MonthlySaving" [value]="true"
+                                        name="MonthlySaving" id="monthlySavingYes"
+                                        (change)="checkValid($event,'MonthlySaving');calulatePercentage(true)">
+                                    <label class="form-selectable" for="monthlySavingYes"
+                                        [class.box-error]="(monthlySaving?.dirty || monthlySaving?.touched) && monthlySaving?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="MonthlySaving" [value]="false"
+                                        name="MonthlySaving" id="monthlySavingNo"
+                                        (change)="checkValid($event,'MonthlySaving');calulatePercentage(false)">
+                                    <label class="form-selectable" for="monthlySavingNo"
+                                        [class.box-error]="(monthlySaving?.dirty || monthlySaving?.touched) && monthlySaving?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="monthlySaving?.dirty || monthlySaving?.touched">
+                                <p class="error-msg" *ngIf="monthlySaving?.errors?.['required']">
+                                    Please select your wealth option
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32"
+                                src="/assets/images/emojies/money-bag.svg" alt="emoji">
+                            <p class="suggetion-secondaryText">70%</p>
+                        </div>
+                        <!-- <p class="suggetion-primaryText">Many Indian consumers have increased their savings and
+                            investments post-pandemic.
+                        </p> -->
+                        <p class="suggetion-primaryText">
+                            of Indian consumers have increased their savings and investments post-pandemic
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION TWO=== -->
+                <div class="box" [class.scrollNext]="sipInvestmet?.errors" [class.disabled]="monthlySaving?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">Are you investing ₹ {{sip |
+                                        inrcurrency}} in Monthly SIPs?</h3>
+                                </div>
+                                <p class="box-header-sub-title">Ideally, you should invest 5% of your total monthly
+                                    salary in an SIP
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group ">
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="SipInvestmet" [value]="true"
+                                        name="SipInvestmet" id="sipInvestmetYes"
+                                        (change)="checkValid($event,'SipInvestmet'); calulatePercentage(true)">
+                                    <label class="form-selectable" for="sipInvestmetYes"
+                                        [class.box-error]="(sipInvestmet?.dirty || sipInvestmet?.touched) && sipInvestmet?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="SipInvestmet" [value]="false"
+                                        name="SipInvestmet" id="sipInvestmetNo"
+                                        (change)="checkValid($event,'SipInvestmet'); calulatePercentage(false)">
+                                    <label class="form-selectable" for="sipInvestmetNo"
+                                        [class.box-error]="(sipInvestmet?.dirty || sipInvestmet?.touched) && sipInvestmet?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="sipInvestmet?.dirty || sipInvestmet?.touched">
+                                <p class="error-msg" *ngIf="sipInvestmet?.errors?.['required']">
+                                    Please select your wealth option
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/confused.svg"
+                                alt="emoji">
+                            <p class="suggetion-secondaryText">72%</p>
+                        </div>
+                        <p class="suggetion-primaryText">
+                            of Indians are unaware of how much to put aside or invest in order to achieve financial
+                            freedom
+                        </p>
+                    </div>
+                </div>
+                <!-- ===#QUESTION THREE=== -->
+
+                <div class="box" [class.scrollNext]="ppfInvestent?.errors" [class.disabled]="sipInvestmet?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">Do you invest at least ₹ {{nps |
+                                        inrcurrency}} in PPF/NPS
+                                        schemes?</h3>
+                                </div>
+                                <p class="box-header-sub-title">You should invest in retirement saving schemes like
+                                    PPF/NPS to secure your life after retirement
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group ">
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="PpfInvestent" [value]="true"
+                                        name="PpfInvestent" id="ppfInvestentYes"
+                                        (change)="checkValid($event,'PpfInvestent');  calulatePercentage(true)">
+                                    <label class="form-selectable" for="ppfInvestentYes"
+                                        [class.box-error]="(ppfInvestent?.dirty || ppfInvestent?.touched) && ppfInvestent?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="PpfInvestent" [value]="false"
+                                        name="PpfInvestent" id="ppfInvestentNo"
+                                        (change)="checkValid($event,'PpfInvestent'); calulatePercentage(false)">
+                                    <label class="form-selectable" for="ppfInvestentNo"
+                                        [class.box-error]="(ppfInvestent?.dirty || ppfInvestent?.touched) && ppfInvestent?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="ppfInvestent?.dirty || ppfInvestent?.touched">
+                                <p class="error-msg" *ngIf="ppfInvestent?.errors?.['required']">
+                                    Please select your wealth option
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/oldLady.svg"
+                                alt="emoji">
+                            <p class="suggetion-secondaryText">57%</p>
+                        </div>
+                        <p class="suggetion-primaryText"> Many Individuals could withdraw money from their investments
+                            like PPF during the Covid-19 pandemic.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION FIVE=== 
+
+                <div class="box" [class.scrollNext]="ownedAssets.errors" [class.disabled]="ppfInvestent?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">Do you own any of the below-mentioned assets?</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group form-selectable-group--checkbox">
+                                <div class="form-selectable__wrapper col-6"
+                                    *ngFor="let item of assetsTypeOptions , let i = index">
+                                    <input type="checkbox" [checked]="item.isSelected"
+                                        (change)="assetsSelected($event, item)" id="property{{i}}">
+                                    <label class="form-selectable" for="property{{i}}"
+                                        [class.box-error]="(ownedAssets.dirty || ownedAssets.touched) && ownedAssets.errors?.['required'] || ownedAssets.errors?.['minlength']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle checkbox"></span>{{item.value}}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div> -->
+                <!-- ===#ERROR MESSAGE=== 
+                            <div *ngIf="ownedAssets?.dirty || ownedAssets?.touched">
+                                <p class="error-msg"
+                                    *ngIf="ownedAssets.errors?.['required'] || ownedAssets.errors?.['minlength']">
+                                    Please select your wealth option
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/building.svg"
+                                alt="emoji">
+                            <p class="suggetion-secondaryText">40%</p>
+                        </div> -->
+                <!-- <p class="suggetion-primaryText">
+                            Most investors calculate their returns on immovable assets without understanding
+                            <b>inflation and opportunity costs</b>.
+                        </p>
+                        <p class="suggetion-primaryText">
+                            of investors calculate their returns on immovable assets without understanding <b>inflation
+                                and opportunity costs</b>
+
+                        </p>
+                    </div>
+                </div> -->
+                <!-- ===#QUESTION FOUR=== -->
+
+
+                <div class="box" [class.scrollNext]="existingSource?.errors" [class.disabled]="ppfInvestent?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">
+                                        Do you have an existing source of rental income?
+                                    </h3>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group ">
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="ExistingSource" [value]="true"
+                                        name="ExistingSource" id="existingSourceYes"
+                                        (change)="checkValid($event,'ExistingSource');  calulatePercentage(true)">
+                                    <label class="form-selectable" for="existingSourceYes"
+                                        [class.box-error]="(existingSource?.dirty || existingSource?.touched) && existingSource?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>Yes
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-selectable__wrapper col-6">
+                                    <input type="radio" formControlName="ExistingSource" [value]="false"
+                                        name="ExistingSource" id="existingSourceNo"
+                                        (change)="checkValid($event,'ExistingSource'); calulatePercentage(false)">
+                                    <label class="form-selectable" for="existingSourceNo"
+                                        [class.box-error]="(existingSource?.dirty || existingSource?.touched) && existingSource?.errors?.['required']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle radio"></span>No
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="existingSource?.dirty || existingSource?.touched">
+                                <p class="error-msg" *ngIf="existingSource?.errors?.['required']">
+                                    Please select your wealth option
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/oldLady.svg"
+                                alt="emoji">
+                            <p class="suggetion-secondaryText">57%</p>
+                        </div>
+                        <!-- <p class="suggetion-primaryText"> Many Individuals could withdraw money from their investments
+                            like PPF during the Covid-19 pandemic.
+                        </p> -->
+                        <p class="suggetion-primaryText">
+                            of individuals could withdraw money from their investments like PPF during the Covid-19
+                            pandemic.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ===#QUESTION FIVE=== -->
+
+                <div class="box" [class.scrollNext]="ownedAssets.errors" [class.disabled]="existingSource?.errors">
+                    <div class="box-header justify-content-between">
+                        <div class="box-header__left">
+                            <div>
+                                <div class="d-sm-flex align-items-center">
+                                    <h3 class="box-header-title">Do you own any of the below-mentioned assets?</h3>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box__form-holder justify-content-center">
+                        <div class="col-sm-10 col-xl-8">
+                            <div class="form-selectable-group form-selectable-group--checkbox">
+                                <div class="form-selectable__wrapper col-6"
+                                    *ngFor="let item of assetsTypeOptions , let i = index">
+                                    <input type="checkbox" [checked]="item.isSelected"
+                                        (change)="assetsSelected($event, item)" id="property{{i}}">
+                                    <label class="form-selectable" for="property{{i}}"
+                                        [class.box-error]="(ownedAssets.dirty || ownedAssets.touched) && ownedAssets.errors?.['required'] || ownedAssets.errors?.['minlength']">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle checkbox"></span>{{item.value}}
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- ===#ERROR MESSAGE=== -->
+                            <div *ngIf="ownedAssets?.dirty || ownedAssets?.touched">
+                                <p class="error-msg"
+                                    *ngIf="ownedAssets.errors?.['required'] || ownedAssets.errors?.['minlength']">
+                                    Please select your wealth option
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suggetion-box">
+                        <div class="suggetion-box__left">
+                            <img class="suggetion-icon" height="32" width="32" src="/assets/images/emojies/building.svg"
+                                alt="emoji">
+                            <p class="suggetion-secondaryText">40%</p>
+                        </div>
+                        <!-- <p class="suggetion-primaryText">
+                            Most investors calculate their returns on immovable assets without understanding
+                            <b>inflation and opportunity costs</b>.
+                        </p>-->
+                        <p class="suggetion-primaryText">
+                            of investors calculate their returns on immovable assets without understanding <b>inflation
+                                and opportunity costs</b>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="form-action">
+
+                    <button class="btn primary-button mx-auto submitButton btn-loader" (click)="saveForm($event)"
+                        [class.btn-disabled]="!wealthManagementForm.valid || loading" [class.loaded]="loading">
+                        Save and Next
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

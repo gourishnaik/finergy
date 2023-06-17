@@ -1,0 +1,70 @@
+<!-- ===#HEADER=== -->
+
+<div class="header position-relative navbar-spacer navbar-spacer--progress">
+    <div class="header__top-vectors">
+        <img class="img-fluid" src="/assets/images/vectors/sun.svg" alt="sun vector">
+        <img class="img-fluid desk-wave" src="/assets/images/vectors/waves-three.svg" alt="wave vector">
+    </div>
+    <div class="header__top-vectors-mobile">
+        <img class="header__vectors-mobile-circles" src="/assets/images/vectors/mobile/dots.svg" alt="dots">
+        <img class="header__top-vectors-mobile-wave hide-desk" src="/assets/images/vectors/waves.svg" alt="waves">
+    </div>
+    <div class="container site-container">
+        <div class="header__row">
+            <div class="header__left">
+
+                <div class="header__vectors">
+                    <img class="img-fluid" src="/assets/images/headers/details-new.png" alt="details header">
+                    <img class="img-fluid header__vectors-desk-circles-one"
+                        src="/assets/images/vectors/circles-three.svg" alt="graph">
+                </div>
+            </div>
+            <div class="header__right">
+                <div>
+                    <img class="header__right-desk-vector" src="/assets/images/vectors/circles.svg" alt="vectors">
+                    <div class="header__content">
+                        <img class="img-fluid header__content-vector-right" src="/assets/images/vectors/waves-four.svg"
+                            alt="vectors">
+                        <h2 class="header__title"><span class="header__title-primary">Kudos&nbsp;</span> <span
+                                class="header__title-secondary">Nicole</span></h2>
+                        <p class="header__text">on taking your first step in knowing your financial status.</p>
+                        <img class="img-fluid header__logo" src="/assets/images/vectors/finergy-logo.svg" alt="Finergy">
+                    </div>
+                    <img class="hide-desk header__bottom-vector" src="/assets/images/vectors/mobile/waves.svg"
+                        alt="waves">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===#END HEADER=== -->
+
+<!-- ===#TAB BAR=== -->
+<div class="tab-sticky">
+    <div class="container-lg site-container">
+        <!-- ===#TAB=== -->
+        <div class="tab-wrapper scrollbarHidden">
+            <div class="tab-group" #tabs>
+                <a class="tab__button" (click)="scrollInToview($event)" routerLinkActive="active"
+                    routerLink="/details/basic-info">Basic Info</a>
+                <a class="tab__button" [class.disabled]="this.forms.basic" (click)="scrollInToview($event)" routerLinkActive="active"
+                    routerLink="/details/goals">Goals</a>
+                <a class="tab__button" [class.disabled]="this.forms.goals" (click)="scrollInToview($event)" routerLinkActive="active"
+                    routerLink="/details/budgeting">Budgeting</a>
+                <a class="tab__button" [class.disabled]="this.forms.budget" (click)="scrollInToview($event)" routerLinkActive="active"
+                    routerLink="/details/risk-management">Risk
+                    Management</a>
+                <a class="tab__button" [class.disabled]="this.forms.riskMagement" (click)="scrollInToview($event)" routerLinkActive="active"
+                    routerLink="/details/wealth-management">Wealth
+                    Management</a>
+            </div>
+        </div>
+        <!-- ===#END TAB=== -->
+    </div>
+</div>
+
+<div class="page-content tab__body">
+    <div class="container-lg site-container">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+</div>

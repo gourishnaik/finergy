@@ -1,0 +1,22 @@
+.vectors-bottom {
+    @media (min-width: 1200px) {
+        top: -50px;
+        right: -31px;
+    }
+    @media (max-width: 1199px) and (min-width: 992px) {
+        top: -24px;
+    }
+}
+
+.vectors-top,
+.vectors-bottom {
+    @media (max-width: 991px) {
+        display: none;
+    }
+}
+
+.form-col-one {
+    @media (max-width: 991px) {
+        background: linear-gradient(180deg, #fff 55%, transparent 0);
+    }
+}

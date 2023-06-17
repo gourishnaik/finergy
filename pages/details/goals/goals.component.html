@@ -1,0 +1,820 @@
+<div class="form-row scrollStart position-relative">
+    <img (click) = "scrollDone();" class="floatDown" src="/assets/images/floatDown.png" alt="down">
+    
+    <div class="form-col-one d-none d-lg-block">
+        <div class="site-container-md goalsvector-holder">
+            <div #goalVectors>
+                <div class="vectors-holder ">
+                    <div class="vectors-top">
+                        <img src="/assets/images/vectors/circles.svg" alt="vectors">
+                    </div>
+                    <div class="vectors-content">
+                        <img class="img-fluid vectors-holder__media" src="/assets/images/hero/goals-new.png"
+                            alt="goals" />
+                    </div>
+                    <div class="vectors-bottom">
+                        <img src="/assets/images/vectors/waves.svg" alt="vectors">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-col-two">
+        <div class="site-container-md">
+            <div>
+                <h3 class="primary-title mb-2 mt-3 mt-lg-0">Goals</h3>
+                <p class="sub-title mb-3">Choose only 2 goals that you wish to achieve as a family</p>
+            </div>
+            <div>
+                <!-- ===#NOTE: Remove class 'collapsed' to hide collapsed data  -->
+                <div class="box collapsible " [class.collapsed]="!collapse">
+                    <div class=" box-header justify-content-between" (click)="toggleGoalsList() ">
+                        <h3 class="box-header-title">Our Future Goals</h3>
+
+
+
+                        <div class="d-flex">
+                            <div *ngIf=" futureGoals.valid" class="checked success me-3"></div>
+                            <img class="toggle-icon" width="13" src="/assets/images/icons/toggle.svg" alt="arrow">
+                        </div>
+                    </div>
+
+                    <div class="box-content">
+
+
+                        <!-- class="box-content-holder" -->
+                        <div>
+                            <div class="form-selectable-group">
+                                <div class="form-selectable__wrapper secondary-active w-100"
+                                    *ngFor="let item of futureGoalsList, let i = index">
+                                    <input type="checkbox" [checked]="item.isSelected"
+                                        (change)="goalsSelected($event, item)" id="futureGoals{{i}}"
+                                        name="goalsCheckbox" />
+                                    <label class="form-selectable" for="futureGoals{{i}}">
+                                        <div class="d-flex align-items-center">
+                                            <span class="form-selectable__toggle checkbox"></span>{{item.label}}
+                                        </div>
+                                        <div class="suggetion-box" *ngIf="item.helpText ">
+                                            <img class="suggetion-icon" height="32" width="32"
+                                                src="/assets/images/emojies/{{item.helpText.icon}}.svg"
+                                                alt="{{item.helpText.icon}}">
+                                            <p class="suggetion-primaryText">{{item.helpText.text}}</p>
+                                        </div>
+                                    </label>
+                                </div>
+                                <!-- ===#ERROR MESSAGE=== -->
+                                <!--*ngIf="collapse"-->
+
+                                <div *ngIf="futureGoals?.dirty || futureGoals?.touched">
+                                    <p class="error-msg" *ngIf="futureGoals?.errors?.['required']">
+                                        Please select your future goals
+                                    </p>
+                                    <p class="error-msg" *ngIf="futureGoals?.errors?.['minlength']">
+                                        Please select at least 2 goals
+                                    </p>
+                                    <p class="error-msg" *ngIf="futureGoals?.errors?.['maxlength']">
+                                        You can select max 2 goals
+                                    </p>
+
+                                </div>
+                                <button  [class.btn-disabled]="futureGoals.invalid"
+                                    class="btn primary-button mx-auto mt-3 scrollDone" (click)="saveGoals($event)">Done</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===#SELECTED GOALS=== futureGoals.valid &&-->
+                <div class="goals-wrapper" *ngIf="futureGoals.valid && collapse ">
+                    <!-- *ngIf=" futureGoals?.value?.length> 0-->
+                    <div class="box" *ngFor="let item of futureGoals?.value;let idx=index">
+                        <div class="box-header justify-content-between ">
+                            <div class="d-flex">
+                                <span class="box-header-title-index">{{idx+1}}</span>
+                                <h3 class="box-header-title">{{formContent[item].title}}</h3>
+                            </div>
+                            <!-- <div class="d-flex ms-2">
+                                <button class="btn shadow-none p-0">
+                                    <img src="/assets/images/icons/delete.svg" alt="delete">
+                                </button>
+                            </div> -->
+                        </div>
+                        <div class="box-content">
+                            <div>
+                                <div class="box-content-divider">
+                                    <div [ngSwitch]="item">
+                                        <ng-template *ngSwitchCase="'retirement'" [ngTemplateOutlet]="retGoalForm">
+                                        </ng-template>
+                                        <ng-template *ngSwitchCase="'trip'" [ngTemplateOutlet]="tripGoalForm">
+                                        </ng-template>
+                                        <ng-template *ngSwitchCase="'child-education'"
+                                            [ngTemplateOutlet]="kidEdGoalForm">
+                                        </ng-template>
+                                        <ng-template *ngSwitchCase="'loan-free'" [ngTemplateOutlet]="loanGoalForm">
+                                        </ng-template>
+                                        <ng-template *ngSwitchCase="'earn-rent'" [ngTemplateOutlet]="rentGoalForm">
+                                        </ng-template>
+                                        <ng-template *ngSwitchCase="'marriage'" [ngTemplateOutlet]="marriageGoalForm">
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-content-helper">
+                                <div class="suggetion-box">
+                                    <div class="suggetion-box__left">
+                                        <img class="suggetion-icon" height="32" width="32"
+                                            src="/assets/images/emojies/{{formContent[item].svg}}" alt="marriage">
+                                        <p class="suggetion-secondaryText">{{formContent[item].stat}}</p>
+                                    </div>
+
+                                    <p class="suggetion-primaryText">
+                                        {{formContent[item].text}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-action">
+                        <button class="btn primary-button mx-auto submitButton btn-loader scrollDoneNext" (click)="saveGoalMeta()"
+                            [class.btn-disabled]="loading" [class.loaded]="loading">
+                            Save and Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- mask="separator.2"-->
+<ng-template #retGoalForm>
+    <div class="box-content-holder" [formGroup]="retGoalInfo">
+        <div class="secondary-form-wrapper">
+
+            <div class="secondary-form__col ">
+                <div class="secondary-form-group secondary-form-one    position-relative" [class.box-error]="(retirementcurrent?.touched) && (retirementcurrent?.errors?.['required'] ||
+                    retirementcurrent?.errors?.['min'] ||retirementcurrent?.errors?.['max'])">
+                    <img class="goalrupee" src="assets/images/rupee.svg" alt="rupee">
+                    <!--    [class.box-error]="(retirementcurrent?.touched) && (retirementcurrent?.errors?.['required'] || retirementcurrent?.errors?.['min'] ||retirementcurrent?.errors?.['max'])-->
+                    <label>
+                        <span class="secondary-form-label">Current monthly
+                            expenditure <span>(Excluding Loans and EMIs)</span></span>
+                        <div>
+
+                            <input type="tel" (keypress)="scrollMonth($event)" class="secondary-form-input" step="1000" formControlName="current"
+                                placeholder="Please enter the amount" placeholder="Please enter the amount"
+                                mask="separator.2 || 0,000 || 00,000 ||0,00,000 ||00,00,000 ||0,00,00,000"
+                                thousandSeparator="," maxlength="10" (change)="onMonthlyExpChanged()">
+                        </div>
+
+                    </label>
+                    <!-- <p class="info-text">
+                       
+                    </p> -->
+                </div>
+
+                <!--- ERROR -->
+                <div *ngIf="retirementcurrent?.touched">
+                    <p class="error-msg" *ngIf="retirementcurrent?.errors?.['required']">
+                        Please enter current monthly expenditure
+                    </p>
+
+                    <p class="error-msg" *ngIf="retirementcurrent?.errors?.['min']">
+                        Please enter an amount between ₹1000 - ₹1 Crore
+                    </p>
+
+
+                    <p class="error-msg" *ngIf="retirementcurrent?.errors?.['max']">
+                        Please enter an amount between ₹1000 - ₹1 Crore
+                    </p>
+                </div>
+            </div>
+
+            <div class="secondary-form__col">
+
+
+                <div class="secondary-form-group secondary-form-two min-height-81"
+                    [class.box-error]="(retireage?.touched)  && (retireage?.invalid) ">
+
+                    <label>
+                        <span class="secondary-form-label retAge">Retirement age</span>
+                        <div>
+                            <input type="tel" (keypress)="scrollAge($event)" class="secondary-form-input" formControlName="age" maxlength="2" mask="separator.0"
+                                placeholder="Please enter age" (change)="onRetYearChanged()">
+                        </div>
+                    </label>
+
+                </div>
+
+                <!--- ERROR -->
+                <div *ngIf="  retireage?.touched">
+                    <p class="error-msg" *ngIf="retireage?.errors?.['required']">
+                        Please enter retirement age
+                    </p>
+
+                    <p class="error-msg" *ngIf="retireage?.errors?.['min']">
+                        Please enter a number greater than your current age
+                    </p>
+
+                    <p class="error-msg" *ngIf="retireage?.errors?.['max']">
+                        Age must not be greater than 99
+                    </p>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="secondary-suggestion">
+            <h3 class="secondary-suggestion-label expYear" *ngIf="retGoalInfo.value['yearsLeft'] && retirementcurrent">In
+                {{retGoalInfo.value['yearsLeft']}} years
+            </h3>
+            <div class="secondary-suggestion-box scale-effect" [class.animate]="retGoalInfo.value['future']">
+                <div class="secondary-suggestion-col">
+                    <p class="secondary-form-label">Expected expenditure after
+                        {{retGoalInfo.value['yearsLeft']}} years
+                    </p>
+                    <p class="font-14 fw-bold" *ngIf="retGoalInfo.value['yearsLeft']"> {{retGoalInfo.value['future'] |
+                        inrcurrency}}</p>
+                    <!-- currency: 
+                            undefined:"₹ ":'1.0-0'}}-->
+                    <p class="info-text">
+                        This value is calculated by considering the current inflation
+                        rate and the average life expectancy in India
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #tripGoalForm [formGroup]="tripGoalInfo">
+    <div class="box-content-holder">
+        <div class="secondary-form-wrapper">
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-one dropdown-wrapper position-relative"
+                    [class.box-error]=" ( tripamount.controls['min'].touched || tripamount.controls['min'].dirty) &&  tripamount.controls['min'].invalid "
+                    (clickOutside)="closeDropDown('travelCost')">
+                    <img class="goalloanrupee" src="assets/images/rupee.svg" alt="rupee">
+                    <label>
+
+
+                        <span class="secondary-form-label">Approx Cost today</span>
+
+                        <input (click)="dropDownMenu('travelCost')"
+                            class=" secondary-form-input dropdown-input loaninput" type="text"
+                            placeholder="Please select the cost" readonly required
+                            (blur)="tripamount.controls['min'].markAsDirty()"
+                            [value]="tripGoalInfo.value['current']['min'] ? (tripGoalInfo.value['current']['min'] + '-' + tripGoalInfo.value['current']['max']) : '' ">
+                        <img class="dropdown-troggle" [class.toggle]="activeDropDowns.includes('travelCost')"
+                            src="/assets/images/icons/toggle.svg" alt="">
+
+                    </label>
+
+                    <ul class="dropdown-filter" *ngIf="checkActiveDropDown('travelCost')">
+                        <li (click)="closeDropDown('travelCost');selectedTripRange(tc)" *ngFor="let tc of travelCost">
+                            {{tc.min | inrcurrency}}
+                            -
+                            {{tc.max | inrcurrency}}
+                        </li>
+                    </ul>
+
+                </div>
+
+
+                <!--- ERROR -->
+                <div>
+                    <p class="error-msg"
+                        *ngIf="(tripamount.controls['min'].touched || tripamount.controls['min'].dirty)  && tripamount.controls['min'].invalid ">
+                        Please select the cost
+                    </p>
+                </div>
+                <!-- 
+                <ul class="dropdown-filter" *ngIf="checkActiveDropDown('travelCost')">
+                    <li (click)="closeDropDown('travelCost');selectedTripRange(tc)" *ngFor="let tc of travelCost">
+                        {{tc.min | currency:undefined:"":'1.0-0'}}
+                        -
+                        {{tc.max | currency:undefined:"":'1.0-0'}}
+                    </li>
+                </ul> -->
+            </div>
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-two dropdown-wrapper"
+                    (clickOutside)="closeDropDown('tripYear')"
+                    [class.box-error]="(tripstart?.touched) && (tripstart?.errors?.['required'] || tripstart?.errors?.['min'] || tripstart?.errors?.['max'] )">
+                    <div>
+                        <label>
+                            <span class="secondary-form-label">Target Year</span>
+                            <div>
+                                <input (click)="dropDownMenu('tripYear')" class="secondary-form-input"
+                                    formControlName="year" placeholder="YYYY" maxlength="4" mask="separator.0"
+                                    thousandSeparator="" readonly>
+                                <img class="dropdown-troggle" [class.toggle]="activeDropDowns.includes('tripYear')"
+                                    src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                            </div>
+                        </label>
+                        <ul class="dropdown-filter dropdown-filter--height" *ngIf="checkActiveDropDown('tripYear')">
+                            <li *ngFor="let year of (10 | getYears)"
+                                (click)="closeDropDown('tripYear'); onTripYearChange(year)">
+                                {{year}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--- ERROR -->
+                <div *ngIf=" tripstart?.touched">
+                    <p class="error-msg" *ngIf="tripstart?.errors?.['required']">
+                        Please enter the target year for your trip
+                    </p>
+
+                    <p class="error-msg" *ngIf="tripstart?.errors?.['min']">
+                        Select a date up to 10 years ahead of the current year
+                    </p>
+
+                    <p class=" error-msg" *ngIf="tripstart?.errors?.['max']">
+                        Select a date up to 10 years ahead of the current Year
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="secondary-suggestion ">
+            <h3 *ngIf="tripGoalInfo.value['yearsLeft']>1 && tripGoalInfo.value['yearsLeft']<=10"
+                class="secondary-suggestion-label">In
+                {{tripGoalInfo.value['yearsLeft']}} years</h3>
+            <h3 *ngIf="tripGoalInfo.value['yearsLeft']==1" class="secondary-suggestion-label">In
+                {{tripGoalInfo.value['yearsLeft']}} year</h3>
+            <h3 *ngIf="tripGoalInfo.value['yearsLeft']==0" class="secondary-suggestion-label">In This year</h3>
+            <div class="secondary-suggestion-box scale-effect"
+                [class.animate]="tripGoalInfo.value['future']['min'] && tripGoalInfo.value['yearsLeft'] && tripGoalInfo.value['yearsLeft']>=0 &&tripGoalInfo.value['yearsLeft']<=10 && tripGoalInfo.value['current'] || tripGoalInfo.value['yearsLeft']==0">
+                <div class="d-flex justify-content-between">
+                    <div class="secondary-suggestion-col">
+                        <!-- <p *ngIf="!tripGoalInfo.value['yearsLeft'] &&tripGoalInfo.value['yearsLeft'] >this.currentYear"
+                            class="secondary-form-label">Approx Cost In
+                            year</p> -->
+                        <!-- *ngIf="tripGoalInfo.value['yearsLeft']> 1 && tripGoalInfo.value['yearsLeft']<=10 " -->
+                        <p class="secondary-form-label">Approx Cost In
+                            {{ tripGoalInfo.value['yearsLeft']> 1 && tripGoalInfo.value['yearsLeft']<=10 ?
+                                tripGoalInfo.value['yearsLeft'] : '' }} {{tripGoalInfo.value['yearsLeft']==0 ? 'this'
+                                :''}} year{{tripGoalInfo.value['yearsLeft']> 1 ? 's' : ''}}</p>
+
+                        <p *ngIf="tripGoalInfo.value['future']['min'] && tripGoalInfo.value['yearsLeft'] && tripGoalInfo.value['yearsLeft']>=0 &&tripGoalInfo.value['yearsLeft']<=10 && tripGoalInfo.value['current'] || tripGoalInfo.value['yearsLeft']==0"
+                            class="font-14 fw-bold">
+                            {{tripGoalInfo.value['future']['min'] |
+                            inrcurrency}}
+                            -
+                            {{tripGoalInfo.value['future']['max'] |
+                            inrcurrency}}</p>
+                        <p class="info-text">This value is calculated by considering
+                            the current inflation rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #kidEdGoalForm>
+
+
+    <!-- "kids goal -->
+
+    <form [formGroup]="kidGoalInfo">
+        <ng-container formArrayName="kids">
+            <ng-container *ngFor="let item of kids.controls; let ki = index">
+                <div class="box-content-holder mb-4" [formGroupName]="ki">
+                    <h3 class="secondary-suggestion-label">CHILD {{ki+1}}</h3>
+                    <div class="secondary-form-wrapper">
+                        <div class="secondary-form__col">
+                            <div class="secondary-form-group secondary-form-two dropdown-wrapper"
+                                (clickOutside)="closeDropDown('childsAge'+ki)" [class.box-error]="(kids.at(ki).get('age')?.dirty || kids.at(ki).get('age')?.touched) &&
+                            (kids.at(ki).get('age')?.invalid)">
+
+                                <label>
+
+                                    <span class="secondary-form-label">Age</span>
+                                    <input (click)="dropDownMenu('childsAge'+ki)" formControlName='age'
+                                        class="secondary-form-input dropdown-input" type="number"
+                                        placeholder="Please select child's age" [value]="item.value['age']" readonly
+                                        required>
+                                    <img class="dropdown-troggle"
+                                        [class.toggle]="activeDropDowns.includes('childsAge'+ki)"
+                                        src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                                </label>
+                                <ul class="dropdown-filter dropdown-filter--height"
+                                    *ngIf="checkActiveDropDown('childsAge'+ki)">
+                                    <li (click)="closeDropDown('childsAge'+ki);onKidAgeChange(ki,age)"
+                                        *ngFor="let age of  childsAge">
+                                        {{age}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--- ERROR  -->
+                            <div *ngIf="(kids.at(ki).get('age')?.dirty || kids.at(ki).get('age')?.touched) &&
+                                (kids.at(ki).get('age')?.invalid)">
+                                <p class="error-msg">
+                                    Please select child's age
+                                </p>
+                            </div>
+
+
+                        </div>
+
+                        <div class="secondary-form__col">
+                            <div class="secondary-form-group secondary-form-two dropdown-wrapper"
+                                (clickOutside)="closeDropDown('educationDegree'+ ki)" [class.box-error]="(kids.at(ki).get('profession')?.dirty || kids.at(ki).get('profession')?.touched) &&
+                                (kids.at(ki).get('profession')?.invalid)">
+                                <label>
+                                    <span class="secondary-form-label">Degree you wish for</span>
+                                    <input (click)="dropDownMenu('educationDegree'+ki)"
+                                        class="secondary-form-input dropdown-input" type="text"
+                                        placeholder="please select degree" [value]="item.value['profession'] | degree"
+                                        readonly required (blur)="kids.at(ki).get('profession')?.markAsDirty()">
+                                    <img class="dropdown-troggle"
+                                        [class.toggle]="activeDropDowns.includes('educationDegree'+ki)"
+                                        src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                                </label>
+                                <ul class="dropdown-filter" *ngIf="checkActiveDropDown('educationDegree'+ki)">
+                                    <li (click)="closeDropDown('educationDegree'+ki);selectKidDegree(deg, ki)"
+                                        *ngFor="let deg of educationDegree">
+                                        {{deg}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--- ERROR  -->
+                            <div *ngIf="(kids.at(ki).get('profession')?.dirty || kids.at(ki).get('profession')?.touched) &&
+                             (kids.at(ki).get('profession')?.invalid)">
+                                <p class="error-msg">
+                                    Please select degree
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="secondary-suggestion">
+                        <!-- <h3 *ngIf="item.value['yearsLeft']>1 " class="secondary-suggestion-label">
+                            In
+                            {{item.value['yearsLeft']}} years</h3>
+                        <h3 *ngIf="item.value['yearsLeft'] ==0 " class="secondary-suggestion-label">
+                            In
+                            this year</h3> -->
+                        <h3 *ngIf="item.value['yearsLeft'] ==0 && item.value['age'] "
+                            class="secondary-suggestion-label">
+                            In
+                            this year</h3>
+
+                        <h3 *ngIf="item.value['age'] && item.value['yearsLeft'] >0" class="secondary-suggestion-label">
+                            In
+                            {{item.value['yearsLeft']}} years</h3>
+
+                        <!-- <h3 *ngIf="item.value['age'] " class="secondary-suggestion-label">
+                            In
+                            {{item.value['yearsLeft']}} years</h3> -->
+
+                        <div class="secondary-suggestion-box scale-effect"
+                            [class.animate]="item.value['normal'] && item.value['premier']">
+                            <div class="d-flex justify-content-between">
+                                <div class="secondary-suggestion-col">
+                                    <p class="secondary-form-label">Normal Institute Fees</p>
+                                    <p class="font-14 fw-bold" *ngIf="item.value['age']">{{item.value['normal'] |
+                                        inrcurrency}}</p>
+
+                                </div>
+                                <div class="secondary-suggestion-col">
+                                    <p class="secondary-form-label">Premier Institute Fees</p>
+                                    <p class="font-14 fw-bold" *ngIf="item.value['age']">{{item.value['premier'] |
+                                        inrcurrency}}</p>
+                                </div>
+                            </div>
+                            <p class="info-text">Includes fees, hostel charges, supplies, field
+                                trips</p>
+
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+        </ng-container>
+
+        <div class="box__form-holder--mod box__form-holder--padding">
+            <p class="box__form-question">Do you have a Child Education plan?</p>
+            <div class="col-sm-6">
+                <div class="form-selectable-group">
+                    <div class="form-selectable__wrapper col-6 ">
+                        <input type="radio" [value]="true" formControlName="insurance" id="insuranceYes" required>
+                        <label class="form-selectable" for="insuranceYes"
+                            [class.box-error]="(childsplan?.errors?.['required'] &&  childsplan?.touched)">
+                            <div class="d-flex align-items-center">
+                                <span class="form-selectable__toggle radio"></span>Yes
+                            </div>
+                        </label>
+                    </div>
+                    <div class="form-selectable__wrapper col-6">
+                        <input type="radio" [value]="false" formControlName="insurance" id="insuranceNo">
+                        <label class="form-selectable" for="insuranceNo"
+                            [class.box-error]="(childsplan?.errors?.['required']  &&  childsplan?.touched)">
+                            <div class="d-flex align-items-center">
+                                <span class="form-selectable__toggle radio"></span>No
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <!-- ===#ERROR MESSAGE=== -->
+                <!-- <div >
+            <p class="error-msg" >
+                Please select your budget
+            </p>
+        </div> -->
+            </div>
+        </div>
+    </form>
+
+</ng-template>
+<ng-template #loanGoalForm>
+    <div class="box-content-holder" [formGroup]="loanGoalInfo">
+        <div class="secondary-form-wrapper">
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-one position-relative"
+                    [class.box-error]="(loanpayamount?.touched) && (loanpayamount?.errors?.['required'] || loanpayamount?.errors?.['min'] || loanpayamount?.errors?.['max'])">
+                    <img class="goalloanrupee" src="assets/images/rupee.svg" alt="rupee">
+                    <label>
+                        <span class="secondary-form-label "> Principal Outstanding
+                            Amount</span>
+                        <div>
+                            <input type="tel" (keypress)="scrollPrincipal($event)" class="secondary-form-input" step="10000" formControlName="current"
+                                mask="separator.2 || 0,000 || 00,000 ||0,00,000 ||00,00,000 ||0,00,00,000"
+                                placeholder="Please enter the amount" thousandSeparator="," maxlength="10"
+                                (change)="onLoanAmountChange()">
+                        </div>
+
+                    </label>
+                </div>
+                <!--- ERROR -->
+                <div *ngIf="loanpayamount?.touched">
+                    <p class="error-msg" *ngIf="loanpayamount?.errors?.['required']">
+                        Please enter the amount
+                    </p>
+
+                    <p class="error-msg" *ngIf="loanpayamount?.errors?.['min']">
+                        Please enter an amount between ₹1000 - ₹1 Crore
+                    </p>
+
+
+                    <p class="error-msg" *ngIf="loanpayamount?.errors?.['max']">
+                        Please enter an amount between ₹1000 - ₹1 Crore
+                    </p>
+                </div>
+            </div>
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-two dropdown-wrapper principal"
+                    (clickOutside)="closeDropDown('loanYear')"
+                    [class.box-error]="( loanpayyear?.touched) && (loanpayyear?.errors?.['required'] || loanpayyear?.errors?.['min']||loanpayyear?.errors?.['max'])">
+                    <label>
+                        <span class="secondary-form-label">Target year to be
+                            loan-free</span>
+                        <div>
+                            <input (click)="dropDownMenu('loanYear')" class="secondary-form-input" [min]="currentYear"
+                                formControlName="year" placeholder="YYYY" maxlength="4" mask="separator.0"
+                                thousandSeparator="" readonly>
+                            <img class="dropdown-troggle" [class.toggle]="activeDropDowns.includes('loanYear')"
+                                src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                        </div>
+                    </label>
+                    <ul class="dropdown-filter dropdown-filter--height" *ngIf="checkActiveDropDown('loanYear')">
+                        <li *ngFor="let year of (30 | getYears : 1)"
+                            (click)="closeDropDown('loanYear'); onLoanYearChange(year )">
+                            {{year}}
+                        </li>
+                    </ul>
+                </div>
+                <!--- ERROR -->
+                <div *ngIf="loanpayyear?.touched">
+                    <p class="error-msg" *ngIf="loanpayyear?.errors?.['required']">
+                        Please enter target year
+                    </p>
+
+                    <p class="error-msg" *ngIf="loanpayyear?.errors?.['min']">
+                        Select a date up to 30 years ahead of the current year
+                    </p>
+
+                    <p class="error-msg" *ngIf="loanpayyear?.errors?.['max']">
+                        Select a date up to 30 years ahead of the current year
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="secondary-suggestion">
+            <h3 *ngIf="loanGoalInfo.value['yearsLeft'] && loanGoalInfo.value['yearsLeft']<=30 && loanGoalInfo.value['yearsLeft'] >1"
+                class="secondary-suggestion-label">In
+                {{loanGoalInfo.value['yearsLeft']}} years
+            </h3>
+            <h3 *ngIf="loanGoalInfo.value['yearsLeft'] ==1" class="secondary-suggestion-label">In
+                {{loanGoalInfo.value['yearsLeft']}} year
+            </h3>
+            <div class="secondary-suggestion-box scale-effect"
+                [class.animate]="loanGoalInfo.value['yearsLeft'] && loanGoalInfo.value['yearsLeft']<=30">
+                <div class="d-flex justify-content-between">
+                    <div class="secondary-suggestion-col">
+                        <p class="secondary-form-label">Amount you’ll need to become Loan free </p>
+                        <p class="font-14 fw-bold"
+                            *ngIf="loanGoalInfo.value['yearsLeft'] && loanGoalInfo.value['yearsLeft']<=30">
+                            {{loanGoalInfo.value['future'] |
+                            inrcurrency}}</p>
+                    </div>
+                </div>
+                <p class="info-text">This value is calculated by considering the
+                    average interest rates in India</p>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #rentGoalForm>
+    <div class="box-content-holder" [formGroup]="rentGoalInfo">
+        <div class="secondary-form-wrapper ">
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-two "
+                    [class.box-error]="(rentincome?.touched) && (rentincome?.errors?.['required'] || rentincome?.errors?.['min'] || rentincome?.errors?.['max'])">
+
+                    <div class="secondary-suggestion-col">
+                        <img class="" src="assets/images/rupee.svg" alt="rupee">
+                        <label>
+                            <span class="secondary-form-label ">
+                                Expected rental income per month
+                            </span>
+                            <div>
+                                <input type="tel" (keypress)="scrollRental($event)" class="secondary-form-input" (change)="expectedRentChange()"
+                                    formControlName="current" placeholder="Please enter the amount"
+                                    mask="separator.2 || 0,000 || 00,000 ||0,00,000 ||00,00,000 ||0,00,00,000"
+                                    thousandSeparator="," maxlength="10" placeholder="Please enter the amount">
+                                <!--   mask="separator.0 ||0,000 ||00,000 ||0,00,000 ||00,00,000 || 0,00,00,000"-->
+                                <!--      mask= '0,000 || 00,000 || 0,00,000 || 00,00,000'
+                                
+                                 mask="separator.2 || 0,000 || 00,000 ||0,00,000 ||00,00,000 ||0,00,00,000"-->
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!--- ERROR -->
+                <div *ngIf="rentincome?.touched">
+                    <p class="error-msg" *ngIf="rentincome?.errors?.['required']">
+                        Please enter rental income
+                    </p>
+
+                    <p class="error-msg" *ngIf="rentincome?.errors?.['min']">
+                        Please enter an amount between ₹10,000 - ₹10 Lakhs
+                    </p>
+
+                    <p class="error-msg" *ngIf="rentincome?.errors?.['max']">
+                        Please enter an amount between ₹10,000 - ₹10 Lakhs
+                    </p>
+                </div>
+
+            </div>
+
+
+
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-three dropdown-wrapper rentalInc"
+                    (clickOutside)="closeDropDown('rentalYear')"
+                    [class.box-error]="(renttargetyear?.touched) && (renttargetyear?.errors?.['required']|| renttargetyear?.errors?.['min'] || renttargetyear?.errors?.['max'])">
+                    <div class="secondary-suggestion-col">
+                        <label>
+                            <span class="secondary-form-label"> Target Year</span>
+                            <div>
+                                <input (click)="dropDownMenu('rentalYear')" class="secondary-form-input"
+                                    [min]="currentYear" formControlName="year" placeholder="YYYY" maxlength="4"
+                                    mask="separator.0" thousandSeparator="" readonly>
+                                <img class="dropdown-troggle" [class.toggle]="activeDropDowns.includes('rentalYear')"
+                                    src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                            </div>
+                        </label>
+                        <ul class="dropdown-filter dropdown-filter--height" *ngIf="checkActiveDropDown('rentalYear')">
+                            <li *ngFor="let year of (30 | getYears:1)"
+                                (click)="closeDropDown('rentalYear'); onRentTargetChange(year)">
+                                {{year}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--- ERROR -->
+                <div *ngIf="renttargetyear?.touched">
+                    <p class="error-msg" *ngIf="renttargetyear?.errors?.['required']">
+                        Please enter target year
+                    </p>
+
+                    <p class="error-msg" *ngIf="renttargetyear?.errors?.['min']">
+                        Select a date up to 30 years ahead of the current year
+                    </p>
+
+                    <p class="error-msg" *ngIf="renttargetyear?.errors?.['max']">
+                        Select a date up to 30 years ahead of the current year
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="secondary-suggestion">
+            <h3 class="secondary-suggestion-label"
+                *ngIf=" rentGoalInfo.value['yearsLeft'] && rentGoalInfo.value['yearsLeft']>=0 && rentGoalInfo.value['yearsLeft']<=30 && rentGoalInfo.value['yearsLeft']>1 ">
+                In
+                {{rentGoalInfo.value['yearsLeft']}} years</h3>
+            <h3 *ngIf=" rentGoalInfo.value['yearsLeft']==1" class="secondary-suggestion-label">In
+                {{rentGoalInfo.value['yearsLeft']}} year</h3>
+            <div class="secondary-suggestion-box scale-effect" [class.animate]="rentGoalInfo.value['future']">
+                <div class="d-flex justify-content-between">
+                    <div class="secondary-suggestion-col">
+                        <p class="secondary-form-label">Cost of property you will need</p>
+                        <p class="font-14 fw-bold "
+                            *ngIf="rentGoalInfo.value['yearsLeft']>0 && rentGoalInfo.value['yearsLeft']<=30 ">
+
+                            {{rentGoalInfo.value['future'] |
+                            inrcurrency}}
+                        </p>
+                    </div>
+                </div>
+                <p class=" info-text">This value is calculated by considering the
+                    current inflation rate</p>
+
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #marriageGoalForm>
+    <div class="box-content-holder" [formGroup]="marriageGoalInfo">
+        <div class="secondary-form-wrapper height-60">
+            <div class="secondary-form__col">
+                <div class="secondary-form-group secondary-form-one  dropdown-wrapper"
+                    (clickOutside)="closeDropDown('marriageYear')"
+                    [class.box-error]="( marriagesaving?.touched) && (marriagesaving?.errors?.['required'] ||marriagesaving?.errors?.['min']  || marriagesaving?.errors?.['max'])">
+                    <label>
+                        <span class="secondary-form-label">Target Year</span>
+                        <div>
+                            <input (click)="dropDownMenu('marriageYear')" class="secondary-form-input"
+                                formControlName="year" [min]="currentYear" maxlength="4" placeholder="YYYY"
+                                maxlength="4" mask="separator.0" thousandSeparator="" required readonly>
+                            <img class="dropdown-troggle" [class.toggle]="activeDropDowns.includes('marriageYear')"
+                                src="/assets/images/icons/toggle.svg" alt="toggle icon">
+                        </div>
+                    </label>
+                    <ul class="dropdown-filter dropdown-filter--height" *ngIf="checkActiveDropDown('marriageYear')">
+                        <li *ngFor="let year of (15 | getYears)"
+                            (click)="closeDropDown('marriageYear'); onMarriageYearChange(year)">
+                            {{year}}
+                        </li>
+                    </ul>
+                </div>
+                <!--- ERROR -->
+                <div *ngIf="marriagesaving?.touched">
+                    <p class="error-msg" *ngIf="marriagesaving?.errors?.['required']">
+                        Please enter the target year
+                    </p>
+
+                    <p class="error-msg" *ngIf="marriagesaving?.errors?.['min']">
+                        Select a date up to 15 years ahead of the current year
+                    </p>
+
+
+                    <p class="error-msg" *ngIf="marriagesaving?.errors?.['max']">
+                        Select a date up to 15 years ahead of the current year
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="secondary-suggestion">
+            <div class="secondary-suggestion-box scale-effect" [class.animate]="marriageGoalInfo.value['future']">
+                <div class="d-flex justify-content-between flex-column flex-md-row ">
+                    <div class=" secondary-suggestion-column">
+                        <p class="secondary-form-label">Cost of your Dream Wedding today
+                        </p>
+                        <p class="font-14 fw-bold">{{marriageGoalInfo.value['current'] |
+                            inrcurrency}}</p>
+                        <p class="info-text">Including Gold, Clothes, Decor etc</p>
+                    </div>
+                    <div class="secondary-suggestion-column">
+                        <p *ngIf="marriageGoalInfo.value['yearsLeft'] > 1" class="secondary-form-label">Cost of your
+                            Dream Wedding in
+                            {{marriageGoalInfo.value['yearsLeft']}}
+                            years</p>
+                        <p *ngIf="marriageGoalInfo.value['yearsLeft'] == 1" class="secondary-form-label">Cost of your
+                            Dream Wedding in
+                            {{marriageGoalInfo.value['yearsLeft']}}
+                            year</p>
+                        <p *ngIf="marriageGoalInfo.value['yearsLeft'] == 0" class="secondary-form-label">Cost of your
+                            Dream Wedding in
+                            this year</p>
+                        <p class="font-14 fw-bold" *ngIf="marriageGoalInfo.value['yearsLeft']>=0">
+                            {{marriageGoalInfo.value['future'] | inrcurrency
+                            }}</p>
+                        <p class=" info-text">This value is calculated by considering
+                            the current inflation rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,310 @@
+<div class="home-header-wrapper navbar-spacer">
+    <div class="home-vectors ">
+        <img class="img-fluid home-vectors-circles hide-mobile" src="/assets/images/vectors/circles-lg.svg"
+            alt="circles vectors">
+        <div class="hide-desk small-circles">
+        </div>
+        <div class="vectors-top hide-desk">
+            <img class="img-fluid" src="/assets/images/vectors/circles.svg" alt="vectors">
+        </div>
+    </div>
+    <div class="secondary-container">
+        <div class="home-header">
+            <div class="home-header__left">
+                <!-- ===#HEADER HERO=== -->
+                <img class="home-header__hero" src="/assets/images/headers/home/hero-new.png" alt="header hero" />
+                <img class="img-fluid home-hero-circles" src="/assets/images/vectors/circles-three.svg" alt="vector" />
+
+                <div class="home-hero-vectors">
+                    <img class="home-hero-wave img-fluid" src="/assets/images/vectors/waves-four.svg"
+                        alt="waves vector" />
+                    <div class="circle hide-mobile">
+                    </div>
+                </div>
+            </div>
+            <div class="home-header__right w-100">
+                <img class="img-fluid home-vectors-content hide-mobile" src="/assets/images/vectors/circles.svg"
+                    alt="circles vectors" />
+                <div class="d-lg-flex home-header__content w-100">
+                    <!-- ==#HEADER CONTENT== -->
+                    <div class="home-header__content-text">
+                        <!-- <h2 class="home-header__text">How well will you do in a financial
+                                crisis?. Take our free 10-Minute
+                            Financial Check-Up to find out.
+                        </h2> -->
+                        <h2 class="home-header__text">How well will you do in a <span class="highlight">financial
+                                crisis?</span> Take our free 10-Minute
+                            <span class="highlight">Financial Check-Up</span> to find out.
+                        </h2>
+                        <!-- ==#HEADER BUTTON== -->
+                        <!-- <button class="secondary-button" routerLink="/details/basic-info"><span
+                                class="secondary-button__contnet">Find Finergy Level</span> </button> -->
+                    </div>
+                    <div class="home-header__content-image">
+                        <img class="img-fluid w-100" src="/assets/images/vectors/finergy-logo.svg" alt="Finergy Logo">
+                    </div>
+                </div>
+                <img class="home-vectors-content-bottom hide-mobile" src="/assets/images/vectors/thunderbolt.svg"
+                    alt="thunderbolt vector">
+
+            </div>
+        </div>
+    </div>
+    <div class="home-vectors-bottom">
+        <img class="img-fluid" src="/assets/images/vectors/waves-three.svg" alt="wave vector">
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="container site-container">
+        <div class="dashboard-content dashboard-row">
+            <div class="dashboard-col mb-2">
+                <!-- <h4 class="secondary-title">Facts</h4> -->
+                <h4 class="secondary-title">DID YOU KNOW?</h4>
+
+                <ngx-slick-carousel class="carousel slick-carousel__mobile" #slickModal="slick-carousel"
+                    [config]="factsSlider">
+
+                    <div ngxSlickItem class="slide" class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/flushedFace-new.svg"
+                                alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            <span class="font-weight-900">67%</span> People depend on their children for money during
+                            their retirement phase.
+                        </p>
+                    </div>
+                    <div ngxSlickItem class="slide" class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/blessed.svg" alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            <span class="font-weight-900">86%</span> Respondents think financial education classes in
+                            schools should be made mandatory.
+                        </p>
+                    </div>
+                    <div ngxSlickItem class="slide" class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/think.svg" alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            <span class="font-weight-900">51%</span> People buy financial products without understanding
+                            their needs for them.
+                        </p>
+                    </div>
+                </ngx-slick-carousel>
+
+
+                <!-- <div class="slick-carousel__desktop">
+                    <div class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/flushedFace.svg" alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            <span class="font-weight-900">67%</span> people depend on their children for money during
+                            their
+                            retirement phase.
+                        </p>
+                    </div>
+                    <div class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/flushedFace.svg" alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            People with FINERGY SCORE of more than 70% responded that they feel mentally more peaceful.
+                        </p>
+                    </div>
+                    <div class="box facts-box">
+                        <div class="facts__icon-wrapper">
+                            <img class="img-fluid fact__icon" src="/assets/images/emojies/flushedFace.svg" alt="emoji">
+                        </div>
+                        <p class="facts__text">
+                            <span class="font-weight-900">Do you know</span> that Rs. 100/- kept in Savings Bank Account
+                            reduces its value to Rs. 18/- in 10 years time due to inflation.
+                        </p>
+                    </div>
+                </div> -->
+
+
+            </div>
+            <!-- ===#VOUCHERS SECTION=== -->
+            <div class="dashboard-col">
+                <h4 class="secondary-title">Vouchers</h4>
+
+                <div class="vouchers-box-wrapper">
+                    <div class="vouchers-box vouchers-box-coupon p-0 " *ngFor="let voucher of vouchers; let i = index"
+                        [class.unlock]="voucher.locked" [class.scaleScratch] = "voucher.scratchScale"  (click)="scratchOpen(i)">
+
+                        <div class="vouchers-box__content-wrapper border-0 scratch-card" #backContent>
+
+                            <div class="vouchers-box__content">
+                                <div class="vouchers-box__logo-wrapper">
+                                    <img class="vouchers-box__logo" src="/assets/images/vouchers/{{voucher.logo}}.svg"
+                                        alt="{{voucher.logo}}">
+                                </div>
+                                <p class="vouchers-box__sub-text">{{voucher.subText}}</p>
+                                <h4 class="vouchers-box__text">{{voucher.text}}</h4>
+                                <button class="vouchers-box__action">Know More</button>
+                            </div>
+
+                            <div class="scratch-card__layer" [ngClass]="{'hideCanvas' : voucher.hideCanvas}">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn primary-button primary-button--max-width mx-auto mt-5" routerLink="/details/basic-info">Find
+            Finergy Level</button>
+
+
+    </div>
+</div>
+
+
+
+<!-- ===CONFIRM DETAILS POPUP  *ngIf="closeModal"=== -->
+
+<div *ngIf="confirmModel" class="confirm-box">
+
+    <div class="confirm-box__content ">
+        <h6 class="confirm-box__header-title">
+            CONFIRM YOUR DETAILS
+        </h6>
+
+        <div class="" [formGroup]="userDetailsForm">
+            <div class="confirm-box__input-container">
+                <label for="name" class="confirm-box__input-label">Name</label>
+                <input type="text" [class.box-error]="(userName?.dirty || userName?.touched) && (userName?.errors?.['required'] || userName?.errors?.['name'])" formControlName="UserName" placeholder="Name" class="confirm-box__input" id="name">
+                <p class="error-msg" *ngIf="(userName?.dirty || userName?.touched) && (userName?.errors?.['required'] || userName?.errors?.['name'])">Please enter valid name</p>
+            </div>
+            <div class="confirm-box__input-container">
+                <label for="email" class="confirm-box__input-label">Email</label>
+                <input type="email" formControlName="UserEmail" placeholder="Email" class="confirm-box__input" id="email" [class.box-error]="(userEmail?.dirty || userEmail?.touched) && (userEmail?.errors?.['required'] || userEmail?.errors?.['pattern'])">
+                <p class="error-msg" *ngIf="(userEmail?.dirty || userEmail?.touched) && (userEmail?.errors?.['required'] || userEmail?.errors?.['pattern'])">Please enter valid email</p>
+            </div>
+            <div class="confirm-box__input-container">
+                <label for="phoneNumber" class="confirm-box__input-label">Phone Number</label>
+                <input type="text" formControlName="UserPhoneNumber" placeholder="Phone Number" class="confirm-box__input" id="phoneNumber" [class.box-error]="(userName?.dirty || userName?.touched) && (userName?.errors?.['required'])">
+                <p class="error-msg" *ngIf="(userName?.dirty || userName?.touched) && (userName?.errors?.['required'])">Please enter valid phone number</p>
+            </div>
+            <button class="confirm-box__btn" (click)="submitDetails($event)">Confirm
+                Details</button>
+            <!-- (click)="vouchersDetails(vouchers[0])" -->
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- scratch card modal   -->
+<div [class.d-none]="!scratchModel" class="scratch-box">
+    <div class="sc__wrapper position-relative">
+
+        <button class="sc__wrapper--close" (click) = "scratchClose()">
+            <img src="/assets/images/vouchers/scratchCard/close-icon.svg" alt="close">
+        </button>
+        <!-- scratchcard -->
+        <div id="js--sc--container" class="sc__container" #child1>
+            <!-- background image insert here by scratchcard-js -->
+            <!-- canvas generate here -->
+            <div class="vouchers-box vouchers-box-coupon--scratch m-0">
+
+                <div class="vouchers-box__content-wrapper border-0">
+
+                    <div class="vouchers-box__content">
+                        <h4 class="vouchers-box__header-title">
+                            Congrats! 
+                          </h4>
+                        <div class="vouchers-box__logo-wrapper">
+                            <img class="vouchers-box__logo" src="/assets/images/vouchers/plus.svg" alt="plus">
+                        </div>
+                        <p class="vouchers-box__sub-text">Health Insurance</p>
+                        <h4 class="vouchers-box__text">Get flat Rs. 1000/- cashback</h4>
+                        <!-- <button class="vouchers-box__action">Know More</button> -->
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- infos -->
+        <div class="sc__infos" #child2>
+            <!-- percent -->
+        </div>
+    </div>
+</div>
+
+
+<!-- <div *ngIf="scratchModel" class="confirm-box">
+    <div class="vouchers-box-wrapper">
+        <div class="vouchers-box vouchers-box-coupon p-0">
+
+
+            <div class="vouchers-box__content-wrapper border-0 scratch-card--wrapper" >
+                <div class="scratch-card--popup">
+                    <div class="vouchers-box__content" #backContent>
+                        <div class="vouchers-box__logo-wrapper">
+                            <img class="vouchers-box__logo" src="/assets/images/vouchers/plus.svg"
+                                alt="plus">
+                        </div>
+                        <p class="vouchers-box__sub-text">Health Insurance</p>
+                        <h4 class="vouchers-box__text">Rs. 1000/- Cashback</h4>
+                        <button class="vouchers-box__action">Know More</button>
+                    </div>
+                </div>
+                <canvas id="scratch" height="400" width="400"></canvas>
+            </div>
+        </div>
+    </div> 
+</div> -->
+<!-- scratch card modal ends-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <div class="vouchers-box-wrapper">
+                    <div class="vouchers-box vouchers-box-coupon p-0 " *ngFor="let voucher of vouchers; let i = index"
+                        [class.unlock]="voucher.locked" (click)="voucher.locked ?  '' : vouchersDetails(voucher)">
+        
+        
+                        <div class="vouchers-box__content-wrapper border-0 scratch-card">
+        
+                            <div class="vouchers-box__content" #backContent>
+                                <div class="vouchers-box__logo-wrapper">
+                                    <img class="vouchers-box__logo" src="/assets/images/vouchers/{{voucher.logo}}.svg"
+                                        alt="{{voucher.logo}}">
+                                </div>
+                                <p class="vouchers-box__sub-text">{{voucher.subText}}</p>
+                                <h4 class="vouchers-box__text">{{voucher.text}}</h4>
+                                <button class="vouchers-box__action">Know More</button>
+                                
+                            </div>
+        
+                            <div class="scratch-card__layer">
+        
+                            </div>
+        
+                        </div>
+        
+                    </div>
+                </div> -->
+
+
+
+              
